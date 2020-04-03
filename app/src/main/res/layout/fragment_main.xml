@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background= "@drawable/miami3"
+    tools:context=".MainFragment">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="92dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="138dp"
+        android:layout_marginEnd="-9dp"
+        android:layout_marginRight="-9dp"
+        android:fontFamily="@font/bebasregular"
+        android:text="Welcome to Miami"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+        android:textColor="@color/white"
+        tools:layout_editor_absoluteX="54dp"
+        tools:layout_editor_absoluteY="62dp" />
+
+    <Button
+        android:id="@+id/weatherb"
+        android:layout_width="248dp"
+        android:layout_height="62dp"
+        android:layout_above="@+id/placesbutton"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="84dp"
+        android:layout_marginLeft="84dp"
+        android:layout_marginEnd="79dp"
+        android:layout_marginRight="79dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/halftransparent"
+        android:fontFamily="@font/bebasregular"
+        android:text="Weather"
+        android:textColor="@color/white"
+        tools:layout_editor_absoluteX="116dp"
+        tools:layout_editor_absoluteY="286dp" />
+
+    <Button
+        android:id="@+id/placesbutton"
+        android:layout_width="245dp"
+        android:layout_height="61dp"
+        android:layout_above="@+id/bookmarkb"
+
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="83dp"
+        android:layout_marginLeft="83dp"
+        android:layout_marginEnd="83dp"
+        android:layout_marginRight="83dp"
+        android:layout_marginBottom="14dp"
+        android:background="@color/halftransparent"
+        android:fontFamily="@font/bebasregular"
+        android:text="Places to Go"
+        android:textColor="@color/white"
+        tools:layout_editor_absoluteX="118dp"
+        tools:layout_editor_absoluteY="362dp" />
+
+    <Button
+        android:id="@+id/bookmarkb"
+        android:layout_width="243dp"
+        android:layout_height="66dp"
+        android:layout_alignParentStart="true"
+
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="83dp"
+        android:layout_marginLeft="83dp"
+        android:layout_marginEnd="85dp"
+        android:layout_marginRight="85dp"
+        android:layout_marginBottom="130dp"
+        android:background="@color/halftransparent"
+        android:fontFamily="@font/bebasregular"
+        android:text="Bookmarks"
+        android:textColor="@color/white"
+        tools:layout_editor_absoluteX="118dp"
+        tools:layout_editor_absoluteY="438dp" />
+
+</RelativeLayout>
