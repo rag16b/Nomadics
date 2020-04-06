@@ -1,26 +1,27 @@
 package edu.fsu.cs.nomadics;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class BookmarkFragment extends Fragment {
+public class MapsFragment extends Fragment {
 
-    private OnBookmarkInteractionListener mListener;
+    private OnMapsInteractionListener mListener;
 
-    public BookmarkFragment() {
+    public MapsFragment() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_bookmark, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_maps, container, false);
 
-
+        // TODO: setup UI
 
 
         return rootView;
@@ -29,11 +30,11 @@ public class BookmarkFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnBookmarkInteractionListener) {
-            mListener = (OnBookmarkInteractionListener) context;
+        if (context instanceof OnMapsInteractionListener) {
+            mListener = (OnMapsInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnBookmarkInteractionListener");
+                    + " must implement OnMapsInteractionListener");
         }
     }
 
@@ -43,8 +44,7 @@ public class BookmarkFragment extends Fragment {
         mListener = null;
     }
 
-    public interface OnBookmarkInteractionListener {
+    public interface OnMapsInteractionListener {
         void onReturnHome();
     }
-
 }

@@ -13,11 +13,13 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 
-public class MainActivity extends AppCompatActivity implements MainFragment.OnFragmentInteractionListener, PlacesFragment.OnPlacesInteractionListener, BookmarkFragment.OnBookmarkInteractionListener, WeatherFragment.OnWeatherInteractionListener {
+public class MainActivity extends AppCompatActivity implements MainFragment.OnFragmentInteractionListener, PlacesFragment.OnPlacesInteractionListener,
+        BookmarkFragment.OnBookmarkInteractionListener, WeatherFragment.OnWeatherInteractionListener, MapsFragment.OnMapsInteractionListener {
     MainFragment mainfragment;
     WeatherFragment weatherfragment;
     PlacesFragment placesfragment;
     BookmarkFragment bookmarkfragment;
+    MapsFragment mapsfragment;
 
     FrameLayout fl;
     FragmentTransaction trans;
@@ -86,6 +88,20 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
         ft.addToBackStack(null);
         ft.commit();
 
+    }
+
+    @Override
+    public void onStartMaps() {
+        mapsfragment = new MapsFragment();
+        String tag = MapsFragment.class.getCanonicalName();
+        FrameLayout f1 = (FrameLayout) findViewById(R.id.frame);
+        f1.removeAllViews();
+
+        FragmentManager fm = this.getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.frame, mapsfragment);
+        ft.addToBackStack(null);
+        ft.commit();
     }
 
     @Override
