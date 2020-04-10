@@ -37,6 +37,7 @@ public class WeatherFragment extends Fragment {
     private static final String API_URL = "http://api.openweathermap.org/data/2.5/weather?";
     private static final String API_KEY = "c45efeb71f597995b35290a8e59832e6";  // This is the weather API key
     private static final String ARG_PARAM1 = "Arg1";
+    private OnWeatherInteractionListener mListener;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -228,5 +229,26 @@ public class WeatherFragment extends Fragment {
 
 
         return weatherView;
+    }
+    
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnWeatherInteractionListener) {
+            mListener = (OnWeatherInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnWeatherInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    public interface OnWeatherInteractionListener {
+        void onReturnHome();
     }
 }
