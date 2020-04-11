@@ -47,7 +47,7 @@
 -->
 
 
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/WeatherLayout"
     android:layout_width="match_parent"
@@ -80,7 +80,7 @@
                 android:gravity="center_horizontal"
                 android:textStyle="bold" />
 
-            <androidx.cardview.widget.CardView
+            <android.support.v4.widget.CardView
                 android:id="@+id/WeatherCard"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -97,10 +97,10 @@
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </android.support.v4.widget.CardView>
 
         </LinearLayout>
     </ScrollView>
 
 
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
