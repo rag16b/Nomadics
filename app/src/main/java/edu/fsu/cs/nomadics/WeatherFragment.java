@@ -1,5 +1,7 @@
 package edu.fsu.cs.nomadics;
 
+
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -114,10 +116,10 @@ public class WeatherFragment extends Fragment {
             }
             progressBar.setVisibility(View.GONE);
             Log.i("INFO", response);
-            Toast.makeText(getContext(),"got a response",Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(),"got a response",Toast.LENGTH_SHORT).show();
 
 
-
+/*
             try {
                 // If a value in here comes up as null or 0 chances are the some value failed to init.
                 JSONObject object = (JSONObject) new JSONTokener(response).nextValue();
@@ -173,7 +175,7 @@ public class WeatherFragment extends Fragment {
                 // Appropriate error handling code
                 Log.e("Error", e.getMessage());
             }
-
+*/
             weatherHeader.setText(locationName + " Weather ");
             weatherStatus.setText("Weather Status: "+ weatherMain + "\n"+
                     "Temperature: "+ temp + "\n" +
@@ -230,7 +232,7 @@ public class WeatherFragment extends Fragment {
 
         return weatherView;
     }
-    
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
