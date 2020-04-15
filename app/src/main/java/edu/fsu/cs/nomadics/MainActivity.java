@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
     FrameLayout fl;
     FragmentTransaction trans;
 
+    //this function is used to startup the activity and sets the screen to automatically be fullscreen; it also calls onMain to set the first view as the main fragment
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
         onMain();
     }
 
+    //this function is used to set the view to the mainfragment
     public void onMain() {
 
         mainfragment = new MainFragment();
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
 
     }
 
+    //this function is utilized when the weather button is pressed to transition to the weather fragment
     @Override
     public void onStartWeather() {
         weatherfragment = new WeatherFragment();
@@ -58,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
 
     }
 
+    //this fragment is utilized when the places button is pressed to transition to the places fragment
     @Override
     public void onStartPlaces() {
         placesfragment = new PlacesFragment();
@@ -73,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
 
     }
 
+    //this function is utilized when the bookmarks button is pressed to transition to that fragment
     @Override
     public void onStartBookmarks() {
         bookmarkfragment = new BookmarkFragment();
@@ -87,7 +92,8 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
         ft.commit();
 
     }
-
+    
+    //this function is used in the other fragments when the button is pressed to return to the main fragment
     @Override
     public void onReturnHome(){
         mainfragment = new MainFragment();
