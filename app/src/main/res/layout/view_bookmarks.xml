@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/viewholder_layout"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:background="@color/halftransparent"
+    android:paddingVertical="20dp"
+    android:paddingHorizontal="60dp">
+
+    <TextView
+        android:id="@+id/bookmarkName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
+        android:text="bookmark"
+        android:fontFamily="sans-serif-medium"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/white" />
+
+</RelativeLayout>
