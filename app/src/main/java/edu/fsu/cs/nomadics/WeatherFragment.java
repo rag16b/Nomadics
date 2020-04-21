@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -185,7 +186,7 @@ public class WeatherFragment extends Fragment {
 
         new Retrieve5DayTask().execute();
 
-        Toast.makeText(getContext(),"Tried JSON Objects",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(),"Tried JSON Objects",Toast.LENGTH_SHORT).show();
 
 
 
@@ -637,9 +638,11 @@ public class WeatherFragment extends Fragment {
 
                 JSONObject sys = listItem.getJSONObject("sys");
                 week_sys_pod[i] = sys.getString("pod");
+
+                // TODO Get rid of Toasts
                 if(i == 0)
                 {
-                    Toast.makeText(getContext(),"POD 0 is: " + week_sys_pod[i],Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(),"POD 0 is: " + week_sys_pod[i],Toast.LENGTH_SHORT).show();
                 }
 
                 week_date[i] = listItem.getString("dt_txt");
@@ -709,6 +712,7 @@ public class WeatherFragment extends Fragment {
                 URL url = new URL(API_URL + "id=4164138"+ unitType + "&appid=" + API_KEY);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 try {
+
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                     StringBuilder stringBuilder = new StringBuilder();
                     String line;
