@@ -5,6 +5,7 @@
     android:id="@+id/WeatherLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000000"
     tools:context=".WeatherFragment">
 
 
@@ -31,17 +32,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <android.support.v7.widget.CardView
                 android:id="@+id/currentWeatherCard"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TextView
                     android:id="@+id/weatherStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/white"
                     android:visibility="gone" />
 
                 <TableLayout
@@ -61,6 +65,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:text="TextView"
+                            android:textColor="@color/white"
                             android:textSize="75sp"
                             android:textStyle="bold" />
 
@@ -81,6 +86,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="TextView"
+                                android:textColor="@color/white"
                                 android:textSize="14sp" />
 
                             <TextView
@@ -88,6 +94,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="TextView"
+                                android:textColor="@color/white"
                                 android:textSize="14sp" />
                         </LinearLayout>
 
@@ -103,7 +110,8 @@
                             android:id="@+id/textView_currentWeatherdesc"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
@@ -113,7 +121,8 @@
             <android.support.v7.widget.CardView
                 android:id="@+id/currentDetails"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <LinearLayout
                     android:id="@+id/currentdetails_layout"
@@ -125,38 +134,44 @@
                         android:id="@+id/currentdetails_wind"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="TextView" />
+                        android:text="TextView"
+                        android:textColor="@color/white" />
 
                     <TextView
                         android:id="@+id/currentdetails_humidity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="TextView" />
+                        android:text="TextView"
+                        android:textColor="@color/white" />
 
                     <TextView
                         android:id="@+id/currentdetails_pressure"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="TextView" />
+                        android:text="TextView"
+                        android:textColor="@color/white" />
 
                     <TextView
                         android:id="@+id/currentdetails_sunrise"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="TextView" />
+                        android:text="TextView"
+                        android:textColor="@color/white" />
 
                     <TextView
                         android:id="@+id/currentdetails_sunset"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="TextView" />
+                        android:text="TextView"
+                        android:textColor="@color/white" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard0"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout0"
@@ -167,19 +182,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow0"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate0"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow0"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon0"
@@ -190,31 +206,32 @@
                             android:id="@+id/textView_cardTemperature0"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow0"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary0"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout1"
@@ -225,54 +242,57 @@
                     <TableRow
                         android:id="@+id/cardDateRow1"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow1"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon1"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:scaleType="fitStart" />
 
                         <TextView
                             android:id="@+id/textView_cardTemperature1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow1"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout2"
@@ -283,19 +303,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow2"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow2"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon2"
@@ -306,31 +327,32 @@
                             android:id="@+id/textView_cardTemperature2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow2"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard3"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout3"
@@ -341,19 +363,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow3"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow3"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon3"
@@ -364,31 +387,32 @@
                             android:id="@+id/textView_cardTemperature3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow3"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard4"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout4"
@@ -399,19 +423,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow4"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow4"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon4"
@@ -422,31 +447,32 @@
                             android:id="@+id/textView_cardTemperature4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow4"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard5"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout5"
@@ -457,19 +483,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow5"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow5"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon5"
@@ -480,31 +507,32 @@
                             android:id="@+id/textView_cardTemperature5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow5"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard6"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout6"
@@ -515,19 +543,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow6"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow6"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon6"
@@ -538,31 +567,32 @@
                             android:id="@+id/textView_cardTemperature6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow6"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard7"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout7"
@@ -573,19 +603,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow7"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate7"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow7"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon7"
@@ -596,31 +627,32 @@
                             android:id="@+id/textView_cardTemperature7"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow7"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary7"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard8"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout8"
@@ -631,19 +663,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow8"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate8"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow8"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon8"
@@ -654,31 +687,32 @@
                             android:id="@+id/textView_cardTemperature8"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow8"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary8"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard9"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout9"
@@ -689,19 +723,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow9"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate9"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow9"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon9"
@@ -712,31 +747,32 @@
                             android:id="@+id/textView_cardTemperature9"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow9"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary9"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard10"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout10"
@@ -747,19 +783,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow10"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate10"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow10"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon10"
@@ -770,31 +807,32 @@
                             android:id="@+id/textView_cardTemperature10"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow10"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary10"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard11"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout11"
@@ -805,19 +843,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow11"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate11"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow11"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon11"
@@ -828,31 +867,32 @@
                             android:id="@+id/textView_cardTemperature11"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow11"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary11"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard12"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout12"
@@ -863,19 +903,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow12"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate12"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow12"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon12"
@@ -886,31 +927,32 @@
                             android:id="@+id/textView_cardTemperature12"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow12"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary12"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard13"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout13"
@@ -921,19 +963,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow13"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate13"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow13"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon13"
@@ -944,31 +987,32 @@
                             android:id="@+id/textView_cardTemperature13"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow13"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary13"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard14"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout14"
@@ -979,19 +1023,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow14"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate14"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow14"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon14"
@@ -1002,31 +1047,32 @@
                             android:id="@+id/textView_cardTemperature14"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow14"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary14"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard15"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout15"
@@ -1037,19 +1083,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow15"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate15"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow15"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon15"
@@ -1060,31 +1107,32 @@
                             android:id="@+id/textView_cardTemperature15"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow15"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary15"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard16"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout16"
@@ -1095,19 +1143,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow16"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate16"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow16"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon16"
@@ -1118,31 +1167,32 @@
                             android:id="@+id/textView_cardTemperature16"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow16"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary16"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard17"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout17"
@@ -1153,19 +1203,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow17"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate17"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow17"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon17"
@@ -1176,31 +1227,32 @@
                             android:id="@+id/textView_cardTemperature17"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow17"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary17"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard18"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout18"
@@ -1211,19 +1263,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow18"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate18"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow18"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon18"
@@ -1234,31 +1287,32 @@
                             android:id="@+id/textView_cardTemperature18"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow18"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary18"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard19"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout19"
@@ -1269,19 +1323,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow19"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate19"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow19"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon19"
@@ -1292,31 +1347,32 @@
                             android:id="@+id/textView_cardTemperature19"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow19"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary19"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard20"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout20"
@@ -1327,19 +1383,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow20"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate20"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow20"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon20"
@@ -1350,31 +1407,32 @@
                             android:id="@+id/textView_cardTemperature20"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow20"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary20"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard21"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout21"
@@ -1385,19 +1443,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow21"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate21"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow21"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon21"
@@ -1408,31 +1467,32 @@
                             android:id="@+id/textView_cardTemperature21"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow21"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary21"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard22"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout22"
@@ -1443,19 +1503,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow22"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate22"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow22"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon22"
@@ -1466,31 +1527,32 @@
                             android:id="@+id/textView_cardTemperature22"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow22"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary22"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard23"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout23"
@@ -1501,19 +1563,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow23"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate23"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow23"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon23"
@@ -1524,31 +1587,32 @@
                             android:id="@+id/textView_cardTemperature23"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow23"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary23"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard24"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout24"
@@ -1559,19 +1623,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow24"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate24"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow24"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon24"
@@ -1582,31 +1647,32 @@
                             android:id="@+id/textView_cardTemperature24"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow24"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary24"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard25"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout25"
@@ -1617,19 +1683,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow25"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate25"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow25"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon25"
@@ -1640,31 +1707,32 @@
                             android:id="@+id/textView_cardTemperature25"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow25"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary25"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard26"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout26"
@@ -1675,19 +1743,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow26"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate26"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow26"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon26"
@@ -1698,31 +1767,32 @@
                             android:id="@+id/textView_cardTemperature26"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow26"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary26"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard27"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout27"
@@ -1733,19 +1803,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow27"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate27"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow27"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon27"
@@ -1756,31 +1827,32 @@
                             android:id="@+id/textView_cardTemperature27"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow27"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary27"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard28"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout28"
@@ -1791,19 +1863,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow28"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate28"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow28"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon28"
@@ -1814,31 +1887,32 @@
                             android:id="@+id/textView_cardTemperature28"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow28"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary28"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard29"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout29"
@@ -1849,19 +1923,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow29"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate29"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow29"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon29"
@@ -1872,31 +1947,32 @@
                             android:id="@+id/textView_cardTemperature29"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow29"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary29"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard30"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout30"
@@ -1907,19 +1983,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow30"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate30"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow30"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon30"
@@ -1930,31 +2007,32 @@
                             android:id="@+id/textView_cardTemperature30"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow30"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary30"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard31"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout31"
@@ -1965,19 +2043,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow31"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate31"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow31"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon31"
@@ -1988,31 +2067,32 @@
                             android:id="@+id/textView_cardTemperature31"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow31"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary31"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard32"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout32"
@@ -2023,19 +2103,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow32"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate32"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow32"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon32"
@@ -2046,31 +2127,32 @@
                             android:id="@+id/textView_cardTemperature32"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow32"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary32"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard33"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout33"
@@ -2081,19 +2163,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow33"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate33"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow33"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon33"
@@ -2104,31 +2187,32 @@
                             android:id="@+id/textView_cardTemperature33"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow33"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary33"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard34"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout34"
@@ -2139,19 +2223,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow34"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate34"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow34"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon34"
@@ -2162,31 +2247,32 @@
                             android:id="@+id/textView_cardTemperature34"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow34"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary34"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard35"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout35"
@@ -2197,19 +2283,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow35"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate35"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow35"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon35"
@@ -2220,31 +2307,32 @@
                             android:id="@+id/textView_cardTemperature35"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow35"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary35"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard36"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout36"
@@ -2255,19 +2343,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow36"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate36"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow36"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon36"
@@ -2278,31 +2367,32 @@
                             android:id="@+id/textView_cardTemperature36"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow36"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary36"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard37"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout37"
@@ -2313,19 +2403,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow37"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate37"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow37"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon37"
@@ -2336,31 +2427,32 @@
                             android:id="@+id/textView_cardTemperature37"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow37"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary37"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard38"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout38"
@@ -2371,19 +2463,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow38"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate38"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow38"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon38"
@@ -2394,31 +2487,32 @@
                             android:id="@+id/textView_cardTemperature38"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow38"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary38"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:id="@+id/fiveDayWeatherCard39"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@android:color/darker_gray">
 
                 <TableLayout
                     android:id="@+id/fiveDayCardLayout39"
@@ -2429,19 +2523,20 @@
                     <TableRow
                         android:id="@+id/cardDateRow39"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardDate39"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardTemperatureRow39"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/imageView_cardIcon39"
@@ -2452,27 +2547,25 @@
                             android:id="@+id/textView_cardTemperature39"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                     <TableRow
                         android:id="@+id/cardSummaryRow39"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView_cardSummary39"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textColor="@color/white" />
                     </TableRow>
 
                 </TableLayout>
             </android.support.v7.widget.CardView>
-
-
-
-
 
 
         </LinearLayout>
