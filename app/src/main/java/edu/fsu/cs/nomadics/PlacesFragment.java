@@ -4,23 +4,33 @@ package edu.fsu.cs.nomadics;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.RectangularBounds;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+
+import java.util.Arrays;
 
 
 public class PlacesFragment extends Fragment implements View.OnClickListener{
 
     private OnPlacesInteractionListener mListener;
-
     Button homebutton;
     Button weatherbutton;
     Button bookmarksbutton;
-
-
-
+    String TAG = "PlacesFragment";
 
     public PlacesFragment() {
         // Required empty public constructor
@@ -29,9 +39,8 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_places, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_places, container, false);
 
-        // TODO: setup UI
         weatherbutton = (Button) rootView.findViewById(R.id.weatherb);
         homebutton = (Button) rootView.findViewById(R.id.homebutton);
         bookmarksbutton = (Button) rootView.findViewById(R.id.bookmarkb);
@@ -39,6 +48,34 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
         weatherbutton.setOnClickListener(this);
         homebutton.setOnClickListener(this);
         bookmarksbutton.setOnClickListener(this);
+
+        //initialize places api
+        String apiKey = "AIzaSyAh6XsP0jo_LY2dzu1d-YQmBe-EqoXxzas";
+        if (!Places.isInitialized())
+            Places.initialize(rootView.getContext(), apiKey);
+
+        //initialize autcomplete search
+        AutocompleteSupportFragment auto = (AutocompleteSupportFragment)getChildFragmentManager()
+                .findFragmentById(R.id.autocomplete_support_fragment);
+        auto.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.LAT_LNG, Place.Field.NAME));
+
+        //autocompletes to only addresses in the Miami area
+        auto.setLocationBias(RectangularBounds.newInstance(
+                new LatLng(25.629851, -80.301897),
+                new LatLng(25.953478, -80.120961)));
+        auto.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(@NonNull Place place) {
+                // TODO: Get info about the selected place.
+                Toast.makeText(rootView.getContext(), place.getName(), Toast.LENGTH_SHORT).show();
+                //auto.setUserVisibleHint(false);
+            }
+
+            @Override
+            public void onError(@NonNull Status status) {
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });
 
         return rootView;
     }
