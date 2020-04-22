@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.OpeningHours;
+import com.google.android.libraries.places.api.model.PhotoMetadata;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.model.RectangularBounds;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
@@ -81,7 +82,8 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
             public void onPlaceSelected(@NonNull Place place) {
                 //must use client to get info like address, phone number, etc
                 List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME,
-                        Place.Field.ADDRESS, Place.Field.PHONE_NUMBER, Place.Field.OPENING_HOURS);
+                        Place.Field.ADDRESS, Place.Field.PHONE_NUMBER, Place.Field.OPENING_HOURS,
+                        Place.Field.PHOTO_METADATAS);
                 final FetchPlaceRequest request = FetchPlaceRequest.newInstance(place.getId(),
                         fields);
 
@@ -96,6 +98,9 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
                         String address = place.getAddress();
                         String phone = place.getPhoneNumber();
                         OpeningHours hours = place.getOpeningHours();
+                        List<PhotoMetadata> photos = place.getPhotoMetadatas();
+
+                        //Launch dialog
 
 //                        Toast.makeText(rootView.getContext(), hours.getWeekdayText().toString(), Toast.LENGTH_LONG).show();
 
@@ -106,6 +111,8 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.e(TAG, "Place not found: " + e.getMessage());
+                        Toast.makeText(rootView.getContext(), "An error occurred",
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
             }
