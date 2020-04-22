@@ -7,26 +7,84 @@
     android:background="@color/black"
     tools:context=".PlacesFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linear_buttons">
 
+        <Button
+            android:id="@+id/homebutton"
+            android:textSize="20sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@color/halftransparent"
+            android:fontFamily="@font/bebasregular"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Home" />
+
+        <Button
+            android:id="@+id/weatherb"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@color/halftransparent"
+            android:fontFamily="@font/bebasregular"
+            android:text="Weather"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/bookmarkb"
+            android:textSize="20sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@color/halftransparent"
+            android:fontFamily="@font/bebasregular"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"
+            android:text="Bookmarks" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linear_buttons"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/bebasregular"
+        android:text="Places to Go"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textColor="@color/white"
+        android:gravity="center"/>
 
     <LinearLayout
         android:id="@+id/linerlayout"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/white"
         android:layout_below="@+id/textView2"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginStart="27dp"
-        android:layout_marginLeft="27dp"
         android:layout_marginTop="26dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
 
-        <fragment android:id="@+id/autocomplete_support_fragment"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment" />
-
+            android:background="@color/white">
+            <fragment android:id="@+id/autocomplete_support_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"/>
+        </LinearLayout>
     </LinearLayout>
 
 <!--    <EditText-->
@@ -62,140 +120,79 @@
 <!--        android:fontFamily="@font/bebasregular"-->
 <!--        android:text="Search" />-->
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="288dp"
-        android:layout_height="wrap_content"
-
-        android:layout_below="@+id/weatherb"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="88dp"
-        android:layout_marginLeft="88dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="35dp"
-        android:layout_marginRight="35dp"
-        android:fontFamily="@font/bebasregular"
-        android:text="Places to Go"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-        android:textColor="@color/white" />
-
-    <Button
-        android:id="@+id/hotelsbutton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linerlayout"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="25dp"
-        android:background="@color/halftransparent"
-        android:fontFamily="@font/bebasregular"
-        android:text="Hotels"
-        android:textColor="@color/white" />
+        android:layout_marginTop="25dp">
 
-    <Button
-        android:id="@+id/restaurantsbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linerlayout"
-        android:layout_marginStart="2dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginTop="25dp"
-        android:layout_toEndOf="@+id/hotelsbutton"
-        android:layout_toRightOf="@+id/hotelsbutton"
-        android:background="@color/halftransparent"
-        android:fontFamily="@font/bebasregular"
-        android:text="Restaurants"
-        android:textColor="@color/white" />
+        <Space
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
 
-    <Button
-        android:id="@+id/parksbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linerlayout"
-        android:layout_marginStart="17dp"
-        android:layout_marginLeft="17dp"
-        android:layout_marginTop="26dp"
-        android:layout_toEndOf="@+id/restaurantsbutton"
-        android:layout_toRightOf="@+id/restaurantsbutton"
-        android:background="@color/halftransparent"
-        android:fontFamily="@font/bebasregular"
-        android:text="Parks"
-        android:textColor="@color/white" />
+        <Button
+            android:id="@+id/hotelsbutton"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="wrap_content"
+            android:background="@color/halftransparent"
+            android:fontFamily="@font/bebasregular"
+            android:text="Hotels"
+            android:textColor="@color/white" />
 
-    <Button
-        android:id="@+id/shopsbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linerlayout"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="6dp"
-        android:layout_marginLeft="6dp"
-        android:layout_marginTop="26dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_toEndOf="@+id/parksbutton"
-        android:layout_toRightOf="@+id/parksbutton"
-        android:background="@color/halftransparent"
-        android:fontFamily="@font/bebasregular"
-        android:text="Shops"
-        android:textColor="@color/white" />
+        <Space
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
 
-    <Button
-        android:id="@+id/homebutton"
-        android:textSize="20sp"
-        android:layout_width="98dp"
-        android:background="@color/halftransparent"
-        android:fontFamily="@font/bebasregular"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:textColor="@color/white"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="-10dp"
-        android:text="Home" />
+        <Button
+            android:id="@+id/restaurantsbutton"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="wrap_content"
+            android:background="@color/halftransparent"
+            android:fontFamily="@font/bebasregular"
+            android:text="Restaurants"
+            android:textColor="@color/white" />
 
-    <Button
-        android:id="@+id/weatherb"
-        android:layout_width="102dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="13dp"
-        android:layout_marginLeft="13dp"
-        android:layout_marginTop="-8dp"
-        android:layout_toEndOf="@+id/homebutton"
-        android:layout_toRightOf="@+id/homebutton"
-        android:background="@color/halftransparent"
-        android:fontFamily="@font/bebasregular"
-        android:text="Weather"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
+        <Space
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
 
-    <Button
-        android:id="@+id/bookmarkb"
-        android:textSize="20sp"
-        android:layout_width="124dp"
-        android:background="@color/halftransparent"
-        android:fontFamily="@font/bebasregular"
-        android:textColor="@color/white"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="-9dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginRight="18dp"
-        android:layout_toEndOf="@+id/weatherb"
-        android:layout_toRightOf="@+id/weatherb"
-        android:text="Bookmarks" />
+        <Button
+            android:id="@+id/parksbutton"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/restaurantsbutton"
+            android:layout_toRightOf="@+id/restaurantsbutton"
+            android:background="@color/halftransparent"
+            android:fontFamily="@font/bebasregular"
+            android:text="Parks"
+            android:textColor="@color/white" />
 
+        <Space
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
+
+        <Button
+            android:id="@+id/shopsbutton"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/parksbutton"
+            android:layout_toRightOf="@+id/parksbutton"
+            android:background="@color/halftransparent"
+            android:fontFamily="@font/bebasregular"
+            android:text="Shops"
+            android:textColor="@color/white" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
 </RelativeLayout>

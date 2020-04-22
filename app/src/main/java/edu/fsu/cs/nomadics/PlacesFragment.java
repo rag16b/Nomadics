@@ -3,6 +3,9 @@ package edu.fsu.cs.nomadics;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Picture;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -15,13 +18,20 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.OpeningHours;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.model.RectangularBounds;
+import com.google.android.libraries.places.api.net.FetchPlaceRequest;
+import com.google.android.libraries.places.api.net.FetchPlaceResponse;
+import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
 import java.util.Arrays;
+import java.util.List;
 
 
 public class PlacesFragment extends Fragment implements View.OnClickListener{
@@ -54,6 +64,8 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
         if (!Places.isInitialized())
             Places.initialize(rootView.getContext(), apiKey);
 
+        final PlacesClient client = Places.createClient(rootView.getContext());
+
         //initialize autcomplete search
         AutocompleteSupportFragment auto = (AutocompleteSupportFragment)getChildFragmentManager()
                 .findFragmentById(R.id.autocomplete_support_fragment);
@@ -63,17 +75,44 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
         auto.setLocationBias(RectangularBounds.newInstance(
                 new LatLng(25.629851, -80.301897),
                 new LatLng(25.953478, -80.120961)));
+
         auto.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
-                // TODO: Get info about the selected place.
-                Toast.makeText(rootView.getContext(), place.getName(), Toast.LENGTH_SHORT).show();
-                //auto.setUserVisibleHint(false);
+                //must use client to get info like address, phone number, etc
+                List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME,
+                        Place.Field.ADDRESS, Place.Field.PHONE_NUMBER, Place.Field.OPENING_HOURS);
+                final FetchPlaceRequest request = FetchPlaceRequest.newInstance(place.getId(),
+                        fields);
+
+                client.fetchPlace(request).addOnSuccessListener(
+                        new OnSuccessListener<FetchPlaceResponse>() {
+                    @Override
+                    public void onSuccess(FetchPlaceResponse response) {
+                        //get attributes of place
+                        Place place = response.getPlace();
+                        String id = place.getId();
+                        String name = place.getName();
+                        String address = place.getAddress();
+                        String phone = place.getPhoneNumber();
+                        OpeningHours hours = place.getOpeningHours();
+
+//                        Toast.makeText(rootView.getContext(), hours.getWeekdayText().toString(), Toast.LENGTH_LONG).show();
+
+//                        startActivity(new Intent(Intent.ACTION_DIAL,
+//                                Uri.fromParts("tel", phone, null)));
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "Place not found: " + e.getMessage());
+                    }
+                });
             }
 
             @Override
             public void onError(@NonNull Status status) {
-                Log.i(TAG, "An error occurred: " + status);
+                Log.e(TAG, "An error occurred: " + status);
             }
         });
 
