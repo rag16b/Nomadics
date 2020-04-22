@@ -35,7 +35,9 @@
             android:background="@color/halftransparent"
             android:fontFamily="@font/bebasregular"
             android:text="Weather"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:gravity="center"/>
     </LinearLayout>
 
 
@@ -57,7 +59,9 @@
             android:background="@color/halftransparent"
             android:fontFamily="@font/bebasregular"
             android:text="Places to Go"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:gravity="center"/>
     </LinearLayout>
 
     <LinearLayout
@@ -78,7 +82,9 @@
             android:background="@color/halftransparent"
             android:fontFamily="@font/bebasregular"
             android:text="Bookmarks"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:gravity="center"/>
     </LinearLayout>
 
 </RelativeLayout>
