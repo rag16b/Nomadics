@@ -1,9 +1,17 @@
 package edu.fsu.cs.nomadics;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +25,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     private OnMapsInteractionListener mListener;
     private GoogleMap map;
     private MapView mapView;
+
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1346;
 
     public MapsFragment() {
         // Required empty public constructor
@@ -45,6 +55,28 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         MapsInitializer.initialize(getContext());
         map = googleMap;
+
+        if (ActivityCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            map.setMyLocationEnabled(true);
+        } else {
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("Location Permission Needed")
+                    .setMessage("If you would like to use Nomadics' map functionalities, you must allow access to your location.")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            //Prompt the user once explanation has been shown
+                            ActivityCompat.requestPermissions(getActivity(),
+                                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                    LOCATION_PERMISSION_REQUEST_CODE);
+                        }
+                    })
+                    .create()
+                    .show();
+            mListener.onReturnHome();
+        }
     }
 
     @Override
