@@ -11,6 +11,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +50,7 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -65,6 +68,12 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
     Button weatherbutton;
     Button bookmarksbutton;
     Button hotelsbutton;
+    Button restaurantbutton;
+    Button parksbutton;
+    Button shopsbutton;
+
+    private ArrayList<String> names = new ArrayList<>();
+    private RecyclerView placesrecyclerview;
 
     public PlacesFragment() {
         // Required empty public constructor
@@ -74,6 +83,16 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_places, container, false);
+
+        names.add("Hotel 1");
+        names.add("Hotel 2");
+        names.add("Hotel 3");
+
+        placesrecyclerview = rootView.findViewById(R.id.placesrecyclerview);
+        placesrecyclerview.setLayoutManager((new LinearLayoutManager(getContext())));
+        PlacesRecyclerViewAdapter adapter = new PlacesRecyclerViewAdapter(getActivity(), names);
+        placesrecyclerview.setAdapter(adapter);
+
 
         weatherbutton = (Button) rootView.findViewById(R.id.weatherb);
         homebutton = (Button) rootView.findViewById(R.id.homebutton);
@@ -89,6 +108,16 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
         restaurant = false;
         park = false;
         attraction = false;
+
+
+        restaurantbutton = (Button) rootView.findViewById(R.id.restaurantsbutton);
+        parksbutton = (Button) rootView.findViewById(R.id.parksbutton);
+        shopsbutton = (Button) rootView.findViewById(R.id.shopsbutton);
+
+        restaurantbutton.setOnClickListener(this);
+        parksbutton.setOnClickListener(this);
+        shopsbutton.setOnClickListener(this);
+
 
         //initialize places api
 
@@ -284,4 +313,5 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
 
         void onStartBookmarks();
     }
+
 }

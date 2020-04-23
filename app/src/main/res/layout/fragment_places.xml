@@ -170,15 +170,18 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:layout_below="@+id/linear_buttons_options"
+        android:layout_height="300dp"
+        android:orientation="horizontal"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:orientation="horizontal">
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="60dp">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/placesrecyclerview" >
+
+        </android.support.v7.widget.RecyclerView>
 
     </LinearLayout>
-
-
-
-
 </RelativeLayout>
