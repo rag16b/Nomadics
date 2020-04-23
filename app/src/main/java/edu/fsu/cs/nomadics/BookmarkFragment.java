@@ -9,12 +9,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
 
-public class BookmarkFragment extends Fragment {
+public class BookmarkFragment extends Fragment implements View.OnClickListener {
     private static final String TAG = "BookmarkFragment";
+
+    // UI buttons
+    private Button homebutton;
+    private Button weatherbutton;
+    private Button placesbutton;
 
     private OnBookmarkInteractionListener mListener;
     private ArrayList<String> bookmarks = new ArrayList<>();
@@ -29,6 +35,16 @@ public class BookmarkFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_bookmark, container, false);
 
+        // set onclicks for UI buttons
+        homebutton = (Button) rootView.findViewById(R.id.book_homebutton);
+        weatherbutton = (Button) rootView.findViewById(R.id.book_weatherbutton);
+        placesbutton = (Button) rootView.findViewById(R.id.book_placesbutton);
+
+        homebutton.setOnClickListener(this);
+        weatherbutton.setOnClickListener(this);
+        placesbutton.setOnClickListener(this);
+
+        // setting up recyclerview
         bookmarks.add("Testing 1");
         bookmarks.add("The Edge Miami");
         bookmarks.add("Testing 1");
@@ -41,6 +57,15 @@ public class BookmarkFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onClick(View view) {
+        if (homebutton.isPressed())
+            mListener.onReturnHome();
+        if (weatherbutton.isPressed())
+            mListener.onStartWeather();
+        if (placesbutton.isPressed())
+            mListener.onStartPlaces();
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -59,9 +84,10 @@ public class BookmarkFragment extends Fragment {
         mListener = null;
     }
 
-
     public interface OnBookmarkInteractionListener {
         void onReturnHome();
+        void onStartWeather();
+        void onStartPlaces();
     }
 
 }

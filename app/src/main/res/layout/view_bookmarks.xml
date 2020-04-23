@@ -4,7 +4,7 @@
     android:layout_width="match_parent" android:layout_height="wrap_content"
     android:background="@color/halftransparent"
     android:paddingVertical="20dp"
-    android:paddingHorizontal="60dp">
+    android:paddingHorizontal="40dp">
 
     <TextView
         android:id="@+id/bookmarkName"
@@ -18,7 +18,7 @@
         android:layout_marginTop="0dp"
         android:text="bookmark"
         android:fontFamily="sans-serif-medium"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textColor="@color/white" />
 
 </RelativeLayout>
