@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +18,13 @@ import java.util.ArrayList;
 public class BookmarkFragment extends Fragment implements View.OnClickListener {
     private static final String TAG = "BookmarkFragment";
 
+    private OnBookmarkInteractionListener mListener;
     // UI buttons
     private Button homebutton;
     private Button weatherbutton;
     private Button placesbutton;
 
-    private OnBookmarkInteractionListener mListener;
+    private BookMarkFileIO bmarks; // FOR TESTING
     private ArrayList<String> bookmarks = new ArrayList<>();
     private RecyclerView recyclerView;
 
@@ -34,6 +36,7 @@ public class BookmarkFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_bookmark, container, false);
+        Log.d(TAG, "onCreateView: ONCREATEVIEW");
 
         // set onclicks for UI buttons
         homebutton = (Button) rootView.findViewById(R.id.book_homebutton);
@@ -43,6 +46,12 @@ public class BookmarkFragment extends Fragment implements View.OnClickListener {
         homebutton.setOnClickListener(this);
         weatherbutton.setOnClickListener(this);
         placesbutton.setOnClickListener(this);
+
+        // FOR TESTING
+        bmarks = new BookMarkFileIO(getContext());
+        //bmarks.add("Dr. Limon Ceviche Bar", 25.911630, 80.318438);
+        //bmarks.delete("Dr. Limon Ceviche Bar");
+
 
         // setting up recyclerview
         bookmarks.add("Testing 1");

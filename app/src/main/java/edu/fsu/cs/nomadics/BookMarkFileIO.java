@@ -1,6 +1,7 @@
 package edu.fsu.cs.nomadics;
 
 import android.content.Context;
+import android.util.Log;
 import android.util.Pair;
 
 import java.io.BufferedReader;
@@ -43,14 +44,17 @@ public class BookMarkFileIO {
             }
 
         } catch (FileNotFoundException e) {
+            Log.d(TAG, "BookMarkFileIO: filenotfoundEXCEPTION");
             e.printStackTrace();
         } catch (IOException e) {
+            Log.d(TAG, "BookMarkFileIO: ioEXCEPTION");
             e.printStackTrace();
         } finally {
             if (fis != null) {
                 try {
                     fis.close();
                 } catch (IOException e) {
+                    Log.d(TAG, "BookMarkFileIO: can't close FILE");
                     e.printStackTrace();
                 }
             }
@@ -58,25 +62,27 @@ public class BookMarkFileIO {
     }
 
     // adds a bookmark
-    public void add(String bMark, double lon, double lat){
+    public boolean add(String bMark, double lon, double lat){
         if (exists(bMark) != -1)
-            return;
+            return false;
         else {
             Coordinate co = new Coordinate(lon, lat);
             bmNames.add(Pair.create(bMark, co));
             write();
+            return true;
         }
     }
 
     // deletes a bookmark
-    public void delete(String bMark){
+    public boolean delete(String bMark){
         int index = exists(bMark);
         if (index != -1){
             bmNames.remove(index);
             write();
+            return true;
         }
         else
-            return;
+            return false;
     }
 
     // ----- private helper functions -----
@@ -85,7 +91,8 @@ public class BookMarkFileIO {
     // returns the bookmarks index or -1 in its absence
     private int exists(String bMark){
         for (int i = 0; i < bmNames.size(); i++){
-            if (bmNames.get(i).first == bMark)
+            Log.d(TAG, bmNames.get(i).first);
+            if (bmNames.get(i).first.equals(bMark))
                 return i;
         }
         return -1;
@@ -96,9 +103,9 @@ public class BookMarkFileIO {
         // save bmNames contents to a single string line by line
         String bms = new String();
         for (int i = 0; i < bmNames.size(); i++){
-            bms.concat(bmNames.get(i).first + ":");
-            bms.concat(String.valueOf(bmNames.get(i).second.lon) + ":");
-            bms.concat(String.valueOf(bmNames.get(i).second.lat) + "\n");
+            bms = bms.concat(bmNames.get(i).first + ":");
+            bms = bms.concat(bmNames.get(i).second.lon + ":");
+            bms = bms.concat(bmNames.get(i).second.lat + "\n");
         }
 
         // write bms to the file
@@ -108,14 +115,17 @@ public class BookMarkFileIO {
             fos = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
             fos.write(bms.getBytes());
         } catch (FileNotFoundException e) {
+            Log.d(TAG, "write: filenotfoundexception");
             e.printStackTrace();
         } catch (IOException e) {
+            Log.d(TAG, "write: ioexception");
             e.printStackTrace();
         } finally {
             if (fos != null) {
                 try {
                     fos.close();
                 } catch (IOException e) {
+                    Log.d(TAG, "write: can't close file");
                     e.printStackTrace();
                 }
             }
