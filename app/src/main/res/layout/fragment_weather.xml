@@ -1,194 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/swipeLayout_weather"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#000000"
-    tools:context=".WeatherFragment">
+    android:layout_height="wrap_content"
+    android:background="@color/black"
+    android:orientation="vertical">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="94dp"
+        android:layout_height="73dp"
+        android:layout_marginStart="144dp"
+        android:layout_marginLeft="144dp"
+        android:layout_marginTop="75dp"
+        android:indeterminate="true" />
 
-    <LinearLayout
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeLayout_weather"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="272dp"
+        android:background="#000000"
+        tools:context=".WeatherFragment">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="94dp"
-            android:layout_height="73dp"
-            android:layout_marginStart="144dp"
-            android:layout_marginLeft="144dp"
-            android:layout_marginTop="75dp"
-            android:indeterminate="true" />
 
-        <TextView
-            android:id="@+id/weatherHeader"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/currentWeatherCard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            app:cardBackgroundColor="#00000000">
-
-            <TableLayout
-                android:id="@+id/layout_currentWeather"
+            <TextView
+                android:id="@+id/weatherHeader"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
-                <TableRow
-                    android:id="@+id/currentWeather_valueRow"
+            <android.support.v7.widget.CardView
+                android:id="@+id/currentWeatherCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:cardBackgroundColor="#00000000">
+
+                <TableLayout
+                    android:id="@+id/layout_currentWeather"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="2">
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/textView_temperature"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:textColor="@color/white"
-                        android:textSize="75sp"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:id="@+id/currentWeather_icon"
-                        android:layout_width="60dp"
-                        android:layout_height="match_parent"
-                        android:visibility="visible" />
-
-                    <LinearLayout
-                        android:id="@+id/layout_subtemperature"
+                    <TableRow
+                        android:id="@+id/currentWeather_valueRow"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:layout_weight="2">
 
                         <TextView
-                            android:id="@+id/textView_feelslike"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-
+                            android:id="@+id/textView_temperature"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
                             android:textColor="@color/white"
-                            android:textSize="14sp" />
+                            android:textSize="75sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/currentWeather_icon"
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent"
+                            android:visibility="visible" />
+
+                        <LinearLayout
+                            android:id="@+id/layout_subtemperature"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textView_feelslike"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/textView_tempmaxmin"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/currentWeather_descRow"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
 
                         <TextView
-                            android:id="@+id/textView_tempmaxmin"
-                            android:layout_width="match_parent"
+                            android:id="@+id/textView_currentWeatherdesc"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
 
-                            android:textColor="@color/white"
-                            android:textSize="14sp" />
-                    </LinearLayout>
+                            android:textColor="@color/white" />
+                    </TableRow>
 
-                </TableRow>
+                </TableLayout>
 
-                <TableRow
-                    android:id="@+id/currentWeather_descRow"
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/currentDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:cardBackgroundColor="@android:color/background_dark">
+
+                <Switch
+                    android:id="@+id/switch_Units"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:textOff="°F"
+                    android:textOn="°C" />
+
+                <LinearLayout
+                    android:id="@+id/currentdetails_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="120dp"
+                    android:layout_marginLeft="120dp"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView_currentWeatherdesc"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/currentdetails_wind"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
 
                         android:textColor="@color/white" />
-                </TableRow>
 
-            </TableLayout>
+                    <TextView
+                        android:id="@+id/currentdetails_humidity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
 
-        </android.support.v7.widget.CardView>
+                        android:textColor="@color/white" />
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/currentDetails"
+                    <TextView
+                        android:id="@+id/currentdetails_pressure"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/currentdetails_sunrise"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/currentdetails_sunset"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:textColor="@color/white" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="100dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/layout_divider" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/weather_Recycler"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            app:cardBackgroundColor="@android:color/background_dark">
-
-            <Switch
-                android:id="@+id/switch_Units"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="false"
-                android:textOff="°F"
-                android:textOn="°C" />
-
-            <LinearLayout
-                android:id="@+id/currentdetails_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="120dp"
-                android:layout_marginLeft="120dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/currentdetails_wind"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:id="@+id/currentdetails_humidity"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:id="@+id/currentdetails_pressure"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:id="@+id/currentdetails_sunrise"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:id="@+id/currentdetails_sunset"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:textColor="@color/white" />
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="100dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/layout_divider" />
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/weather_Recycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </ScrollView>
+            android:layout_height="wrap_content" />
+    </ScrollView>
 
 
-    </LinearLayout>
+</LinearLayout>
 
 
-</android.support.v4.widget.SwipeRefreshLayout>
