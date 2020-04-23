@@ -9,14 +9,23 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +48,7 @@ import java.util.Timer;
  * Use the {@link WeatherFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WeatherFragment extends Fragment {
+public class WeatherFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String API_URL = "http://api.openweathermap.org/data/2.5/weather?";
@@ -49,12 +58,22 @@ public class WeatherFragment extends Fragment {
     private static final String ARG_PARAM1 = "Arg1";
     String unitType = "&units=imperial";
     private OnWeatherInteractionListener mListener;
+    SwipeRefreshLayout swipeLayout;
+    Fragment frag = null;
+
+
+    private RecyclerView weatherRecycler;
+    private RecyclerView.Adapter weatherAdapter;
+    private RecyclerView.LayoutManager weatherManager;
+
+    Switch unitsToggle;
+
+
 
     private String mParam1;
     ProgressBar progressBar;
 
     TextView weatherHeader;
-    TextView weatherStatus;
     TextView feelsLikeTemp;
     TextView tempMinMax;
     TextView tempBase;
@@ -65,18 +84,6 @@ public class WeatherFragment extends Fragment {
     TextView currentdetails_sunrise;
     TextView currentdetails_sunset;
     ImageView currentIcon;
-
-
-    //-------5 Day Layout Elements
-    TextView fiveDayHeader;
-    TextView[] cardDate = new TextView[40];
-    ImageView[] cardIcon= new ImageView[40];
-    TextView[] cardTemperature = new TextView[40];
-    TextView[] cardSummary = new TextView[40];
-
-
-
-
 
     //------------------Current Weather JSON variables
     int longitude;
@@ -106,43 +113,6 @@ public class WeatherFragment extends Fragment {
     int locationID;
     String locationName;
     int locationCOD;
-    //----------------------------------------------------------
-    //--------------------------5 Day Weather JSON variables
-    int week_cnt;
-    String week_cod;
-    String week_locationName;
-    String week_country;
-    double week_latitude;
-    double week_longitude;
-    int week_sunrise;
-    int week_sunset;
-    int week_timezone;
-    int[] week_dt;
-    int[] week_temp;
-    int[] week_feelslike;
-    int[] week_temp_min;
-    int[] week_temp_max;
-    int[] week_pressure;
-    int[] week_sea_level;
-    int[] week_grnd_level;
-    int[] week_humidity;
-    int[] week_temp_kf;
-    int[] week_weather_id;
-    String[] week_weather_main;
-    String[] week_weather_desc;
-    String[] week_weather_icon;
-    int[] week_clouds_all;
-    double[] week_wind_speed;
-    double[] week_wind_deg;
-    int[] week_rain3h; // Rain Volume for last 3 hours, units: mm
-    int[] week_snow3h; // Snow Volume for last 3 hours
-    String[] week_sys_pod;
-    String[] week_date;
-
-
-    TextView fiveDayHeads;
-
-
 
     public WeatherFragment() {
         // Required empty public constructor
@@ -161,6 +131,7 @@ public class WeatherFragment extends Fragment {
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -174,23 +145,49 @@ public class WeatherFragment extends Fragment {
     }
 
     @Override
+    public void onRefresh() {
+
+        getActivity().getSupportFragmentManager().beginTransaction().detach(this).attach(this).commit();
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(swipeLayout.isRefreshing()) {
+                    swipeLayout.setRefreshing(false);
+                }
+            }
+        }, 1000);
+
+    }
+
+
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View weatherView = inflater.inflate(R.layout.fragment_weather, container, false);
+
         setupCurrentWeather(weatherView);
-        setup5DayWeather(weatherView);
-
-
         new RetrieveFeedTask().execute();
-
         new Retrieve5DayTask().execute();
 
-        //Toast.makeText(getContext(),"Tried JSON Objects",Toast.LENGTH_SHORT).show();
-
-
+        // Recycler Handles the 5 Day Forecast
+        weatherRecycler = weatherView.findViewById(R.id.weather_Recycler);
+        weatherRecycler.setHasFixedSize(false);
 
         return weatherView;
+    }
+
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        swipeLayout = view.findViewById(R.id.swipeLayout_weather);
+        swipeLayout.setOnRefreshListener(this);
+        frag = this;
+
     }
 
     @Override
@@ -217,7 +214,6 @@ public class WeatherFragment extends Fragment {
     public void setupCurrentWeather(View weatherView) {
         progressBar = weatherView.findViewById(R.id.progressBar);
         weatherHeader = weatherView.findViewById(R.id.weatherHeader);
-        weatherStatus = weatherView.findViewById(R.id.weatherStatus);
         tempBase = weatherView.findViewById(R.id.textView_temperature);
         tempMinMax = weatherView.findViewById(R.id.textView_tempmaxmin);
         feelsLikeTemp = weatherView.findViewById(R.id.textView_feelslike);
@@ -228,190 +224,21 @@ public class WeatherFragment extends Fragment {
         currentdetails_pressure = weatherView.findViewById(R.id.currentdetails_pressure);
         currentdetails_sunrise = weatherView.findViewById(R.id.currentdetails_sunrise);
         currentdetails_sunset = weatherView.findViewById(R.id.currentdetails_sunset);
-    }
-    public void setup5DayWeather(View weatherView){
-        setupCardDate(weatherView);
-        setupCardTemperature(weatherView);
-        setupCardSummary(weatherView);
-        setupCardIcon(weatherView);
+        unitsToggle = weatherView.findViewById(R.id.switch_Units);
+        unitsToggle.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked){
+                    unitType = "&units=metric";
+                } else {
+                    unitType = "&units=imperial";
+                }
+            }
+        });
+
     }
 
-    public void setupCardIcon(View weatherView) {
-        cardIcon[0] = weatherView.findViewById(R.id.imageView_cardIcon0);
-        cardIcon[1] = weatherView.findViewById(R.id.imageView_cardIcon1);
-        cardIcon[2] = weatherView.findViewById(R.id.imageView_cardIcon2);
-        cardIcon[3] = weatherView.findViewById(R.id.imageView_cardIcon3);
-        cardIcon[4] = weatherView.findViewById(R.id.imageView_cardIcon4);
-        cardIcon[5] = weatherView.findViewById(R.id.imageView_cardIcon5);
-        cardIcon[6] = weatherView.findViewById(R.id.imageView_cardIcon6);
-        cardIcon[7] = weatherView.findViewById(R.id.imageView_cardIcon7);
-        cardIcon[8] = weatherView.findViewById(R.id.imageView_cardIcon8);
-        cardIcon[9] = weatherView.findViewById(R.id.imageView_cardIcon9);
-        cardIcon[10] = weatherView.findViewById(R.id.imageView_cardIcon10);
-        cardIcon[11] = weatherView.findViewById(R.id.imageView_cardIcon11);
-        cardIcon[12] = weatherView.findViewById(R.id.imageView_cardIcon12);
-        cardIcon[13] = weatherView.findViewById(R.id.imageView_cardIcon13);
-        cardIcon[14] = weatherView.findViewById(R.id.imageView_cardIcon14);
-        cardIcon[15] = weatherView.findViewById(R.id.imageView_cardIcon15);
-        cardIcon[16] = weatherView.findViewById(R.id.imageView_cardIcon16);
-        cardIcon[17] = weatherView.findViewById(R.id.imageView_cardIcon17);
-        cardIcon[18] = weatherView.findViewById(R.id.imageView_cardIcon18);
-        cardIcon[19] = weatherView.findViewById(R.id.imageView_cardIcon19);
-        cardIcon[20] = weatherView.findViewById(R.id.imageView_cardIcon20);
-        cardIcon[21] = weatherView.findViewById(R.id.imageView_cardIcon21);
-        cardIcon[22] = weatherView.findViewById(R.id.imageView_cardIcon22);
-        cardIcon[23] = weatherView.findViewById(R.id.imageView_cardIcon23);
-        cardIcon[24] = weatherView.findViewById(R.id.imageView_cardIcon24);
-        cardIcon[25] = weatherView.findViewById(R.id.imageView_cardIcon25);
-        cardIcon[26] = weatherView.findViewById(R.id.imageView_cardIcon26);
-        cardIcon[27] = weatherView.findViewById(R.id.imageView_cardIcon27);
-        cardIcon[28] = weatherView.findViewById(R.id.imageView_cardIcon28);
-        cardIcon[29] = weatherView.findViewById(R.id.imageView_cardIcon29);
-        cardIcon[30] = weatherView.findViewById(R.id.imageView_cardIcon30);
-        cardIcon[31] = weatherView.findViewById(R.id.imageView_cardIcon31);
-        cardIcon[32] = weatherView.findViewById(R.id.imageView_cardIcon32);
-        cardIcon[33] = weatherView.findViewById(R.id.imageView_cardIcon33);
-        cardIcon[34] = weatherView.findViewById(R.id.imageView_cardIcon34);
-        cardIcon[35] = weatherView.findViewById(R.id.imageView_cardIcon35);
-        cardIcon[36] = weatherView.findViewById(R.id.imageView_cardIcon36);
-        cardIcon[37] = weatherView.findViewById(R.id.imageView_cardIcon37);
-        cardIcon[38] = weatherView.findViewById(R.id.imageView_cardIcon38);
-        cardIcon[39] = weatherView.findViewById(R.id.imageView_cardIcon39);
-    }
 
-    public void setupCardSummary(View weatherView) {
-        cardSummary[0] = weatherView.findViewById(R.id.textView_cardSummary0);
-        cardSummary[1] = weatherView.findViewById(R.id.textView_cardSummary1);
-        cardSummary[2] = weatherView.findViewById(R.id.textView_cardSummary2);
-        cardSummary[3] = weatherView.findViewById(R.id.textView_cardSummary3);
-        cardSummary[4] = weatherView.findViewById(R.id.textView_cardSummary4);
-        cardSummary[5] = weatherView.findViewById(R.id.textView_cardSummary5);
-        cardSummary[6] = weatherView.findViewById(R.id.textView_cardSummary6);
-        cardSummary[7] = weatherView.findViewById(R.id.textView_cardSummary7);
-        cardSummary[8] = weatherView.findViewById(R.id.textView_cardSummary8);
-        cardSummary[9] = weatherView.findViewById(R.id.textView_cardSummary9);
-        cardSummary[10] = weatherView.findViewById(R.id.textView_cardSummary10);
-        cardSummary[11] = weatherView.findViewById(R.id.textView_cardSummary11);
-        cardSummary[12] = weatherView.findViewById(R.id.textView_cardSummary12);
-        cardSummary[13] = weatherView.findViewById(R.id.textView_cardSummary13);
-        cardSummary[14] = weatherView.findViewById(R.id.textView_cardSummary14);
-        cardSummary[15] = weatherView.findViewById(R.id.textView_cardSummary15);
-        cardSummary[16] = weatherView.findViewById(R.id.textView_cardSummary16);
-        cardSummary[17] = weatherView.findViewById(R.id.textView_cardSummary17);
-        cardSummary[18] = weatherView.findViewById(R.id.textView_cardSummary18);
-        cardSummary[19] = weatherView.findViewById(R.id.textView_cardSummary19);
-        cardSummary[20] = weatherView.findViewById(R.id.textView_cardSummary20);
-        cardSummary[21] = weatherView.findViewById(R.id.textView_cardSummary21);
-        cardSummary[22] = weatherView.findViewById(R.id.textView_cardSummary22);
-        cardSummary[23] = weatherView.findViewById(R.id.textView_cardSummary23);
-        cardSummary[24] = weatherView.findViewById(R.id.textView_cardSummary24);
-        cardSummary[25] = weatherView.findViewById(R.id.textView_cardSummary25);
-        cardSummary[26] = weatherView.findViewById(R.id.textView_cardSummary26);
-        cardSummary[27] = weatherView.findViewById(R.id.textView_cardSummary27);
-        cardSummary[28] = weatherView.findViewById(R.id.textView_cardSummary28);
-        cardSummary[29] = weatherView.findViewById(R.id.textView_cardSummary29);
-        cardSummary[30] = weatherView.findViewById(R.id.textView_cardSummary30);
-        cardSummary[31] = weatherView.findViewById(R.id.textView_cardSummary31);
-        cardSummary[32] = weatherView.findViewById(R.id.textView_cardSummary32);
-        cardSummary[33] = weatherView.findViewById(R.id.textView_cardSummary33);
-        cardSummary[34] = weatherView.findViewById(R.id.textView_cardSummary34);
-        cardSummary[35] = weatherView.findViewById(R.id.textView_cardSummary35);
-        cardSummary[36] = weatherView.findViewById(R.id.textView_cardSummary36);
-        cardSummary[37] = weatherView.findViewById(R.id.textView_cardSummary37);
-        cardSummary[38] = weatherView.findViewById(R.id.textView_cardSummary38);
-        cardSummary[39] = weatherView.findViewById(R.id.textView_cardSummary39);
-    }
-
-    public void setupCardTemperature(View weatherView) {
-        cardTemperature[0] = weatherView.findViewById(R.id.textView_cardTemperature0);
-        cardTemperature[1] = weatherView.findViewById(R.id.textView_cardTemperature1);
-        cardTemperature[2] = weatherView.findViewById(R.id.textView_cardTemperature2);
-        cardTemperature[3] = weatherView.findViewById(R.id.textView_cardTemperature3);
-        cardTemperature[4] = weatherView.findViewById(R.id.textView_cardTemperature4);
-        cardTemperature[5] = weatherView.findViewById(R.id.textView_cardTemperature5);
-        cardTemperature[6] = weatherView.findViewById(R.id.textView_cardTemperature6);
-        cardTemperature[7] = weatherView.findViewById(R.id.textView_cardTemperature7);
-        cardTemperature[8] = weatherView.findViewById(R.id.textView_cardTemperature8);
-        cardTemperature[9] = weatherView.findViewById(R.id.textView_cardTemperature9);
-        cardTemperature[10] = weatherView.findViewById(R.id.textView_cardTemperature10);
-        cardTemperature[11] = weatherView.findViewById(R.id.textView_cardTemperature11);
-        cardTemperature[12] = weatherView.findViewById(R.id.textView_cardTemperature12);
-        cardTemperature[13] = weatherView.findViewById(R.id.textView_cardTemperature13);
-        cardTemperature[14] = weatherView.findViewById(R.id.textView_cardTemperature14);
-        cardTemperature[15] = weatherView.findViewById(R.id.textView_cardTemperature15);
-        cardTemperature[16] = weatherView.findViewById(R.id.textView_cardTemperature16);
-        cardTemperature[17] = weatherView.findViewById(R.id.textView_cardTemperature17);
-        cardTemperature[18] = weatherView.findViewById(R.id.textView_cardTemperature18);
-        cardTemperature[19] = weatherView.findViewById(R.id.textView_cardTemperature19);
-        cardTemperature[20] = weatherView.findViewById(R.id.textView_cardTemperature20);
-        cardTemperature[21] = weatherView.findViewById(R.id.textView_cardTemperature21);
-        cardTemperature[22] = weatherView.findViewById(R.id.textView_cardTemperature22);
-        cardTemperature[23] = weatherView.findViewById(R.id.textView_cardTemperature23);
-        cardTemperature[24] = weatherView.findViewById(R.id.textView_cardTemperature24);
-        cardTemperature[25] = weatherView.findViewById(R.id.textView_cardTemperature25);
-        cardTemperature[26] = weatherView.findViewById(R.id.textView_cardTemperature26);
-        cardTemperature[27] = weatherView.findViewById(R.id.textView_cardTemperature27);
-        cardTemperature[28] = weatherView.findViewById(R.id.textView_cardTemperature28);
-        cardTemperature[29] = weatherView.findViewById(R.id.textView_cardTemperature29);
-        cardTemperature[30] = weatherView.findViewById(R.id.textView_cardTemperature30);
-        cardTemperature[31] = weatherView.findViewById(R.id.textView_cardTemperature31);
-        cardTemperature[32] = weatherView.findViewById(R.id.textView_cardTemperature32);
-        cardTemperature[33] = weatherView.findViewById(R.id.textView_cardTemperature33);
-        cardTemperature[34] = weatherView.findViewById(R.id.textView_cardTemperature34);
-        cardTemperature[35] = weatherView.findViewById(R.id.textView_cardTemperature35);
-        cardTemperature[36] = weatherView.findViewById(R.id.textView_cardTemperature36);
-        cardTemperature[37] = weatherView.findViewById(R.id.textView_cardTemperature37);
-        cardTemperature[38] = weatherView.findViewById(R.id.textView_cardTemperature38);
-        cardTemperature[39] = weatherView.findViewById(R.id.textView_cardTemperature39);
-    }
-
-    public void setupCardDate(View weatherView) {
-        cardDate[0] = weatherView.findViewById(R.id.textView_cardDate0);
-        cardDate[1] = weatherView.findViewById(R.id.textView_cardDate1);
-        cardDate[2] = weatherView.findViewById(R.id.textView_cardDate2);
-        cardDate[3] = weatherView.findViewById(R.id.textView_cardDate3);
-        cardDate[4] = weatherView.findViewById(R.id.textView_cardDate4);
-        cardDate[5] = weatherView.findViewById(R.id.textView_cardDate5);
-        cardDate[6] = weatherView.findViewById(R.id.textView_cardDate6);
-        cardDate[7] = weatherView.findViewById(R.id.textView_cardDate7);
-        cardDate[8] = weatherView.findViewById(R.id.textView_cardDate8);
-        cardDate[9] = weatherView.findViewById(R.id.textView_cardDate9);
-        cardDate[10] = weatherView.findViewById(R.id.textView_cardDate10);
-        cardDate[11] = weatherView.findViewById(R.id.textView_cardDate11);
-        cardDate[12] = weatherView.findViewById(R.id.textView_cardDate12);
-        cardDate[13] = weatherView.findViewById(R.id.textView_cardDate13);
-        cardDate[14] = weatherView.findViewById(R.id.textView_cardDate14);
-        cardDate[15] = weatherView.findViewById(R.id.textView_cardDate15);
-        cardDate[16] = weatherView.findViewById(R.id.textView_cardDate16);
-        cardDate[17] = weatherView.findViewById(R.id.textView_cardDate17);
-        cardDate[18] = weatherView.findViewById(R.id.textView_cardDate18);
-        cardDate[19] = weatherView.findViewById(R.id.textView_cardDate19);
-        cardDate[20] = weatherView.findViewById(R.id.textView_cardDate20);
-        cardDate[21] = weatherView.findViewById(R.id.textView_cardDate21);
-        cardDate[22] = weatherView.findViewById(R.id.textView_cardDate22);
-        cardDate[23] = weatherView.findViewById(R.id.textView_cardDate23);
-        cardDate[24] = weatherView.findViewById(R.id.textView_cardDate24);
-        cardDate[25] = weatherView.findViewById(R.id.textView_cardDate25);
-        cardDate[26] = weatherView.findViewById(R.id.textView_cardDate26);
-        cardDate[27] = weatherView.findViewById(R.id.textView_cardDate27);
-        cardDate[28] = weatherView.findViewById(R.id.textView_cardDate28);
-        cardDate[29] = weatherView.findViewById(R.id.textView_cardDate29);
-        cardDate[30] = weatherView.findViewById(R.id.textView_cardDate30);
-        cardDate[31] = weatherView.findViewById(R.id.textView_cardDate31);
-        cardDate[32] = weatherView.findViewById(R.id.textView_cardDate32);
-        cardDate[33] = weatherView.findViewById(R.id.textView_cardDate33);
-        cardDate[34] = weatherView.findViewById(R.id.textView_cardDate34);
-        cardDate[35] = weatherView.findViewById(R.id.textView_cardDate35);
-        cardDate[36] = weatherView.findViewById(R.id.textView_cardDate36);
-        cardDate[37] = weatherView.findViewById(R.id.textView_cardDate37);
-        cardDate[38] = weatherView.findViewById(R.id.textView_cardDate38);
-        cardDate[39] = weatherView.findViewById(R.id.textView_cardDate39);
-
-        for(int dateNum = 0; dateNum < 40; dateNum++)
-        {
-            cardDate[dateNum].setTypeface(Typeface.DEFAULT_BOLD);
-        }
-    }
 
     public void loadCurrentWeather(String response){
         try {
@@ -471,12 +298,6 @@ public class WeatherFragment extends Fragment {
         }
 
         weatherHeader.setText(locationName + " Weather ");
-        weatherStatus.setText("Weather Status: "+ weatherMain + "\n"+
-                "Temperature: "+ temp + "\n" +
-                "Feels Like: " + feels_like + "\n" +
-                "Max Temperature: " + temp_max + "\n" + "Minimum Temperature" + temp_min + "\n" +
-                "Wind Speed: " + windSpeed + "\n" + "Wind Degree:" + windDeg + "\n" +
-                "Pressure: " + pressure + "\n" + "Humidity: " + humidity);
         tempBase.setText(temp + "°");
         feelsLikeTemp.setText("Feels like " + feels_like + "°");
         tempMinMax.setText(temp_max + "°"+ "/" + temp_min + "°");
@@ -567,132 +388,19 @@ public class WeatherFragment extends Fragment {
         try {
             // If a value in here comes up as null or 0 chances are the some value failed to init.
             JSONObject object = (JSONObject) new JSONTokener(response).nextValue();
-            week_cod = object.getString("cod");
-            week_cnt = object.getInt("cnt");
-            JSONObject city = object.getJSONObject("city");
 
-
-            week_locationName = city.getString("name");
-            JSONObject coord = city.getJSONObject("coord");
-            week_latitude = coord.getDouble("lat");
-            week_longitude = coord.getDouble("lon");
-            week_country = city.getString("country");
-            week_timezone = city.getInt("timezone");
-            week_sunrise = city.getInt("sunrise");
-            week_sunset = city.getInt("sunset");
-
-            week_dt = new int[week_cnt];
-            week_date = new String[week_cnt];
-            week_temp = new int[week_cnt];
-            week_feelslike = new int[week_cnt];
-            week_temp_min = new int[week_cnt];
-            week_temp_max = new int[week_cnt];
-            week_pressure = new int[week_cnt];
-            week_sea_level = new int[week_cnt];
-            week_grnd_level = new int[week_cnt];
-            week_humidity = new int[week_cnt];
-            week_temp_kf = new int[week_cnt];
-            week_clouds_all = new int[week_cnt];
-            week_weather_id = new int[week_cnt];
-            week_weather_main = new String[week_cnt];
-            week_weather_desc = new String[week_cnt];
-            week_weather_icon = new String[week_cnt];
-            week_wind_speed = new double[week_cnt];
-            week_wind_deg = new double[week_cnt];
-            week_sys_pod = new String[week_cnt];
-
-
-            for(int i = 0; i < 40; i++)
-            {
-                JSONArray listArray = object.getJSONArray("list");
-                JSONObject listItem = listArray.getJSONObject(i);
-                week_dt[i] = listItem.getInt("dt");
-
-                JSONObject main = listItem.getJSONObject("main");
-                week_temp[i] = main.getInt("temp");
-                week_feelslike[i] = main.getInt("feels_like");
-
-                week_temp_min[i] = main.getInt("temp_min");
-                week_temp_max[i] = main.getInt("temp_max");
-                week_pressure[i] = main.getInt("pressure");
-                week_sea_level[i] = main.getInt("sea_level");
-                week_grnd_level[i] = main.getInt("grnd_level");
-                week_humidity[i] = main.getInt("humidity");
-                week_temp_kf[i] = main.getInt("temp_kf");
-
-
-                JSONObject weather = listItem.getJSONArray("weather").getJSONObject(0);
-                week_weather_id[i] = weather.getInt("id");
-                week_weather_main[i] = weather.getString("main");
-                week_weather_desc[i] = weather.getString("description");
-                week_weather_icon[i] = weather.getString("icon");
-
-                JSONObject clouds = listItem.getJSONObject("clouds");
-                week_clouds_all[i] = clouds.getInt("all");
-
-                JSONObject wind = listItem.getJSONObject("wind");
-                week_wind_speed[i] = wind.getDouble("speed");
-                week_wind_deg[i] = wind.getDouble("deg");
-
-
-
-                JSONObject sys = listItem.getJSONObject("sys");
-                week_sys_pod[i] = sys.getString("pod");
-
-                // TODO Get rid of Toasts
-                if(i == 0)
-                {
-                    //Toast.makeText(getContext(),"POD 0 is: " + week_sys_pod[i],Toast.LENGTH_SHORT).show();
-                }
-
-                week_date[i] = listItem.getString("dt_txt");
-            }
+            // This is the manager for the weather card recycler
+            weatherManager = new LinearLayoutManager(getContext());
+            weatherRecycler.setLayoutManager(weatherManager);
+            weatherAdapter = new WeatherAdapter(object);
+            weatherRecycler.addItemDecoration(new DividerItemDecoration(weatherRecycler.getContext(),LinearLayoutManager.VERTICAL));
+            weatherRecycler.setAdapter(weatherAdapter);
 
         } catch (JSONException e) {
             // Appropriate error handling code
             Log.e("Error", e.getMessage());
         }
 
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /* This try catch block handles the rain object in the JSON response.
-         Since this value is not always given when a client queries the API a separate block needed
-         to be made to handle it while not disrupting the queries to the other values.
-         Objects such as this rain object require their own block.
-         Another object like this one is the snow object*/
-        try {
-            JSONObject dynamicValuesObject = (JSONObject) new JSONTokener(response).nextValue();
-            week_rain3h = new int[week_cnt];
-
-            for(int i = 0; i < 40; i++) {
-                JSONArray listArray = dynamicValuesObject.getJSONArray("list");
-                JSONObject listItem = listArray.getJSONObject(i);
-                JSONObject rain = listItem.getJSONObject("rain");
-                week_rain3h[i] = rain.getInt("3h");
-            }
-        ///////////////////////////////////////////////////////////////////////////////////////////
-
-        } catch (JSONException e) {
-            // Appropriate error handling code
-            Log.e("Error", e.getMessage());
-        }
-
-
-        //TODO Need to add conditions for Rain Volume and Snow Volume
-        for(int k = 0; k < 40; k++)
-        {
-            cardDate[k].setText(week_date[k]);
-            cardTemperature[k].setText(week_temp[k] + "°" );
-            cardSummary[k].setText(week_weather_desc[k] + "\n"
-            + "Feels Like: " + week_feelslike[k] + "°" + "\n"
-            + "Max Temperature: " + week_temp_max[k] + "°" + "\n"
-            + "Min Temperature: " + week_temp_min[k] + "°" + "\n"
-            + "Wind Speed: " + week_wind_speed[k] + " " + windDirection(week_wind_deg[k]) + "\n"
-            + "Humidity: " + week_humidity[k] + "\n"
-            + "Pressure: " + week_pressure[k] + "\n"
-            + "Sunrise: " + week_sunrise + "\n"
-            + "Sunset: " + week_sunset);
-        }
     }
 
 
@@ -791,12 +499,7 @@ public class WeatherFragment extends Fragment {
 //            Toast.makeText(getContext(),"got a response",Toast.LENGTH_SHORT).show();
 
             load5DayWeather(response);
-            //fiveDayHeader.setText(response);
-            //TODO Need to deal with Icons Here
-            for(int c = 0; c < 40; c++)
-            {
-                new RetrieveWeatherIconTask(cardIcon[c]).execute(API_ICON_URL+week_weather_icon[c]+"@2x.png");
-            }
+
 
         }
     }
