@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,10 +19,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private Context context;
     private ArrayList<String> bookmarkNames = new ArrayList<>();
+    private BookMarkFileIO bmarksIO;
 
     public RecyclerViewAdapter(Context context_C, ArrayList<String> bookmarkNames_C) {
             context = context_C;
             bookmarkNames = bookmarkNames_C;
+            bmarksIO = new BookMarkFileIO(context);
     }
 
     @Override
@@ -46,6 +49,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Toast.makeText(context, bookmarkNames.get(position), Toast.LENGTH_SHORT).show();
             }
         });
+
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bmarksIO.delete(bookmarkNames.get(position));
+                bookmarkNames.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, getItemCount());
+            }
+        });
     }
 
     @Override
@@ -58,12 +71,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView bookmarkName;
+        ImageButton deleteButton;
         RelativeLayout viewHolderLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             bookmarkName = itemView.findViewById(R.id.bookmarkName);
+            deleteButton = itemView.findViewById(R.id.deleteButton);
             viewHolderLayout = itemView.findViewById(R.id.viewholder_layout);
         }
     }

@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class BookMarkFileIO {
@@ -85,6 +86,11 @@ public class BookMarkFileIO {
             return false;
     }
 
+    // returns the bookmark information
+    public ArrayList<Pair <String, Coordinate> > getBmNames(){
+        return bmNames;
+    }
+
     // ----- private helper functions -----
 
     // tells whether a bookmark already exists
@@ -133,7 +139,7 @@ public class BookMarkFileIO {
     }
 
     // Private Coordinate Class
-    private class Coordinate{
+    public class Coordinate{
         public double lon;
         public double lat;
 

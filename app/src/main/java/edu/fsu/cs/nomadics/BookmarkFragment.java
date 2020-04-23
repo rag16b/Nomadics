@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,8 @@ public class BookmarkFragment extends Fragment implements View.OnClickListener {
     private Button weatherbutton;
     private Button placesbutton;
 
-    private BookMarkFileIO bmarks; // FOR TESTING
+    private BookMarkFileIO bmarksIO; // FOR TESTING
+    private ArrayList<Pair<String, BookMarkFileIO.Coordinate>> bmNames = new ArrayList<>();
     private ArrayList<String> bookmarks = new ArrayList<>();
     private RecyclerView recyclerView;
 
@@ -47,16 +49,14 @@ public class BookmarkFragment extends Fragment implements View.OnClickListener {
         weatherbutton.setOnClickListener(this);
         placesbutton.setOnClickListener(this);
 
+        // setting up fileIO and syncing arrays
+        bmarksIO = new BookMarkFileIO(getContext());
+        bmNames = bmarksIO.getBmNames();
+        bookmarks = getNames();
         // FOR TESTING
-        bmarks = new BookMarkFileIO(getContext());
-        //bmarks.add("Dr. Limon Ceviche Bar", 25.911630, 80.318438);
+        //bmarksIO.add("Dr. Limon Ceviche Bar", 25.911630, 80.318438);
         //bmarks.delete("Dr. Limon Ceviche Bar");
 
-
-        // setting up recyclerview
-        bookmarks.add("Testing 1");
-        bookmarks.add("The Edge Miami");
-        bookmarks.add("Testing 1");
 
         recyclerView = rootView.findViewById(R.id.bookmarkRV);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -64,6 +64,14 @@ public class BookmarkFragment extends Fragment implements View.OnClickListener {
         recyclerView.setAdapter(adapter);
 
         return rootView;
+    }
+
+    private ArrayList<String> getNames(){
+        ArrayList<String> temp = new ArrayList<>();
+        for (int i = 0; i < bmNames.size(); i++){
+            temp.add(bmNames.get(i).first);
+        }
+        return temp;
     }
 
     @Override
