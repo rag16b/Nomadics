@@ -4,8 +4,6 @@ package edu.fsu.cs.nomadics;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -13,7 +11,6 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,12 +19,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,8 +36,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.time.Duration;
-import java.util.Timer;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 /**
@@ -48,7 +45,7 @@ import java.util.Timer;
  * Use the {@link WeatherFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WeatherFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class WeatherFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String API_URL = "http://api.openweathermap.org/data/2.5/weather?";
@@ -61,13 +58,18 @@ public class WeatherFragment extends Fragment implements SwipeRefreshLayout.OnRe
     SwipeRefreshLayout swipeLayout;
     Fragment frag = null;
 
+    Button homebutton;
+    Button placesbutton;
+    Button bookmarksbutton;
+    boolean isImperial = true;
+    String tempUnits;
+    String windUnits;
+
 
     private RecyclerView weatherRecycler;
     private RecyclerView.Adapter weatherAdapter;
     private RecyclerView.LayoutManager weatherManager;
-
     Switch unitsToggle;
-
 
 
     private String mParam1;
@@ -107,8 +109,8 @@ public class WeatherFragment extends Fragment implements SwipeRefreshLayout.OnRe
     int sysID;
     long message;
     String country;
-    int sunrise;
-    int sunset;
+    String sunrise;
+    String sunset;
     int timezone;
     int locationID;
     String locationName;
@@ -161,7 +163,15 @@ public class WeatherFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     }
 
-
+    @Override
+    public void onClick(View view) {
+        if (placesbutton.isPressed())
+            mListener.onStartPlaces();
+        if (homebutton.isPressed())
+            mListener.onReturnHome();
+        if (bookmarksbutton.isPressed())
+            mListener.onStartBookmarks();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -169,9 +179,20 @@ public class WeatherFragment extends Fragment implements SwipeRefreshLayout.OnRe
         // Inflate the layout for this fragment
         final View weatherView = inflater.inflate(R.layout.fragment_weather, container, false);
 
+        // Initialize App Nav Bar
+        placesbutton = (Button) weatherView.findViewById(R.id.placesb);
+        homebutton = (Button) weatherView.findViewById(R.id.homebutton);
+        bookmarksbutton = (Button) weatherView.findViewById(R.id.bookmarkb);
+
+        placesbutton.setOnClickListener(this);
+        homebutton.setOnClickListener(this);
+        bookmarksbutton.setOnClickListener(this);
+
         setupCurrentWeather(weatherView);
         new RetrieveFeedTask().execute();
         new Retrieve5DayTask().execute();
+
+
 
         // Recycler Handles the 5 Day Forecast
         weatherRecycler = weatherView.findViewById(R.id.weather_Recycler);
@@ -187,6 +208,8 @@ public class WeatherFragment extends Fragment implements SwipeRefreshLayout.OnRe
         swipeLayout = view.findViewById(R.id.swipeLayout_weather);
         swipeLayout.setOnRefreshListener(this);
         frag = this;
+
+
 
     }
 
@@ -209,6 +232,8 @@ public class WeatherFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     public interface OnWeatherInteractionListener {
         void onReturnHome();
+        void onStartPlaces();
+        void onStartBookmarks();
     }
 
     public void setupCurrentWeather(View weatherView) {
@@ -230,8 +255,10 @@ public class WeatherFragment extends Fragment implements SwipeRefreshLayout.OnRe
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked){
                     unitType = "&units=metric";
+                    isImperial = false;
                 } else {
                     unitType = "&units=imperial";
+                    isImperial = true;
                 }
             }
         });
@@ -283,8 +310,8 @@ public class WeatherFragment extends Fragment implements SwipeRefreshLayout.OnRe
             //message = sysOBJ.getLong("message");
 
             country = sysOBJ.getString("country");
-            sunrise = sysOBJ.getInt("sunrise");
-            sunset = sysOBJ.getInt("sunset");
+            sunrise = new SimpleDateFormat("HH:mm:ss MM-dd-yyyy").format(new Date(sysOBJ.getInt("sunrise")* 1000L));
+            sunset = new SimpleDateFormat("HH:mm:ss MM-dd-yyyy").format(new Date(sysOBJ.getInt("sunset")* 1000L));
 
             timezone = object.getInt("timezone");
             locationID = object.getInt("id");
@@ -296,24 +323,35 @@ public class WeatherFragment extends Fragment implements SwipeRefreshLayout.OnRe
             // Appropriate error handling code
             Log.e("Error", e.getMessage());
         }
-
-        weatherHeader.setText(locationName + " Weather ");
-        tempBase.setText(temp + "°");
-        feelsLikeTemp.setText("Feels like " + feels_like + "°");
-        tempMinMax.setText(temp_max + "°"+ "/" + temp_min + "°");
-        currentWeatherDesc.setText(weatherDesc);
-        if(windDeg == 0)
+        // Handle Switch units toggling
+        if(isImperial)
         {
-            currentdetails_wind.setText("Wind Speed: " + windSpeed);
+            tempUnits = "F";
+            windUnits = " miles/hour";
         }
         else
         {
-            currentdetails_wind.setText("Wind Speed: " + windSpeed + " " + windDirection(windDeg));
+            tempUnits = "C";
+            windUnits = " meters/second";
+        }
+
+        weatherHeader.setText(locationName + " Weather ");
+        tempBase.setText(temp + "°");
+        feelsLikeTemp.setText("Feels like " + feels_like + "°" + tempUnits);
+        tempMinMax.setText(temp_max + "°" + tempUnits+ "/" + temp_min + "°" + tempUnits);
+        currentWeatherDesc.setText(weatherDesc);
+        if(windDeg == 0)
+        {
+            currentdetails_wind.setText("Wind Speed: " + windSpeed +windUnits);
+        }
+        else
+        {
+            currentdetails_wind.setText("Wind Speed: " + windSpeed + windUnits + " " + windDirection(windDeg));
         }
         currentdetails_sunset.setText("Sunset: " + sunset);
         currentdetails_sunrise.setText("Sunrise: " + sunrise);
-        currentdetails_pressure.setText("Pressure: " + pressure);
-        currentdetails_humidity.setText("Humidity: " + humidity);
+        currentdetails_pressure.setText("Pressure: " + pressure + " hPa");
+        currentdetails_humidity.setText("Humidity: " + humidity + "%");
     }
     public String windDirection(double windDeg)
     {
@@ -392,7 +430,7 @@ public class WeatherFragment extends Fragment implements SwipeRefreshLayout.OnRe
             // This is the manager for the weather card recycler
             weatherManager = new LinearLayoutManager(getContext());
             weatherRecycler.setLayoutManager(weatherManager);
-            weatherAdapter = new WeatherAdapter(object);
+            weatherAdapter = new WeatherAdapter(object,isImperial);
             weatherRecycler.addItemDecoration(new DividerItemDecoration(weatherRecycler.getContext(),LinearLayoutManager.VERTICAL));
             weatherRecycler.setAdapter(weatherAdapter);
 
