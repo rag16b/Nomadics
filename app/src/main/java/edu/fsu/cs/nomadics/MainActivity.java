@@ -13,7 +13,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 
-public class MainActivity extends AppCompatActivity implements PlacesDialog.OnFragmentInteractionListener, MainFragment.OnFragmentInteractionListener, PlacesFragment.OnPlacesInteractionListener, BookmarkFragment.OnBookmarkInteractionListener, WeatherFragment.OnWeatherInteractionListener {
+public class MainActivity extends AppCompatActivity implements  MainFragment.OnFragmentInteractionListener, PlacesFragment.OnPlacesInteractionListener, BookmarkFragment.OnBookmarkInteractionListener, WeatherFragment.OnWeatherInteractionListener {
     MainFragment mainfragment;
     WeatherFragment weatherfragment;
     PlacesFragment placesfragment;
@@ -44,19 +44,19 @@ public class MainActivity extends AppCompatActivity implements PlacesDialog.OnFr
 
 
     }
-
-    @Override
-    public void onStartMaps(){
-
-
-    }
-
-    //function used to open phone application after button clicked in places dialog
-    @Override
-    public void onStartPhone(){
-
-
-    }
+//
+//    @Override
+//    public void onStartMaps(){
+//
+//
+//    }
+//
+//    //function used to open phone application after button clicked in places dialog
+//    @Override
+//    public void onStartPhone(){
+//
+//
+//    }
 
 
 

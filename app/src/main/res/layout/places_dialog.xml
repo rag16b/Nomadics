@@ -1,128 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
     android:background="@color/grey"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context= ".PlacesDialog">
+    tools:context= ".PlacesDialog"
+    android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            app:srcCompat="@drawable/googleg_disabled_color_18" />
 
-    <ImageButton
-        android:id="@+id/placesbookmarkbutton"
-        android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewHours"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bebasregular"
+                android:text="@string/hours"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textViewHoursOpen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bebasregular"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="23dp"
-        android:layout_marginLeft="23dp"
-        android:layout_marginBottom="22dp"
-        android:background="@android:drawable/ic_menu_save"
-        android:fontFamily="@font/bebasregular"
-        android:text="Bookmark"
-        android:textColor="@color/white" />
+        android:orientation="vertical">
 
-    <ImageButton
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="39dp"
-        android:layout_marginLeft="39dp"
-        android:layout_marginBottom="20dp"
-        android:layout_toEndOf="@+id/placesbookmarkbutton"
-        android:layout_toRightOf="@+id/placesbookmarkbutton"
-        android:background="@android:drawable/ic_menu_call"
-        android:fontFamily="@font/bebasregular"
-        android:text="Button"
-        android:textColor="@color/white" />
+        <TextView
+            android:id="@+id/textViewName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:fontFamily="@font/bebasregular"
+            android:text="Name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
 
-    <ImageButton
-        android:id="@+id/exitbutton"
+        <TextView
+            android:id="@+id/textViewAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:fontFamily="@font/bebasregular"
+            android:text="Address"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#3F7CFF" />
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="17dp"
-        android:background="@android:drawable/ic_menu_close_clear_cancel"
-        android:fontFamily="@font/bebasregular"
-        android:text="Exit"
-        android:textColor="@color/white" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="348dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/button2"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="19dp"
-        android:layout_marginLeft="19dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginRight="44dp"
-        android:layout_marginBottom="34dp"
-        android:fontFamily="@font/bebasregular"
-        android:text="Address"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/white" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
 
-    <TextView
-        android:id="@+id/nameview"
-        android:layout_width="348dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView3"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="18dp"
-        android:layout_marginLeft="18dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginRight="45dp"
-        android:layout_marginBottom="14dp"
-        android:fontFamily="@font/bebasregular"
-        android:text="Name"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/white" />
+                <ImageButton
+                    android:id="@+id/placesbookmarkbutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:drawable/ic_menu_save"
+                    android:fontFamily="@font/bebasregular"
+                    android:text="Bookmark"
+                    android:textColor="@color/white" />
+            </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="215dp"
-        android:layout_height="216dp"
-        android:layout_above="@+id/nameview"
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
 
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="21dp"
-        android:layout_marginLeft="21dp"
-        android:layout_marginTop="-21dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginBottom="36dp"
-        android:layout_toStartOf="@+id/textView5"
-        android:layout_toLeftOf="@+id/textView5"
-        android:background="@color/white"
-        app:srcCompat="@drawable/googleg_disabled_color_18" />
+                <ImageButton
+                    android:id="@+id/callbutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:drawable/ic_menu_call"
+                    android:fontFamily="@font/bebasregular"
+                    android:text="Button"
+                    android:textColor="@color/white" />
+            </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="128dp"
-        android:layout_height="82dp"
-        android:layout_above="@+id/exitbutton"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginEnd="38dp"
-        android:layout_marginRight="38dp"
-        android:layout_marginBottom="155dp"
-        android:fontFamily="@font/bebasregular"
-        android:text="Hours"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/white" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
 
-</RelativeLayout>
+                <ImageButton
+                    android:id="@+id/exitbutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:drawable/ic_menu_close_clear_cancel"
+                    android:fontFamily="@font/bebasregular"
+                    android:text="Exit"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

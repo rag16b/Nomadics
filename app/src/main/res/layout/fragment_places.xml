@@ -56,7 +56,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         android:fontFamily="@font/bebasregular"
         android:text="Places to Go"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
@@ -70,7 +70,7 @@
         android:layout_below="@+id/textView2"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="25dp"
         android:orientation="horizontal"
         android:layout_gravity="center_horizontal"
         android:paddingLeft="20dp"
@@ -87,40 +87,8 @@
         </LinearLayout>
     </LinearLayout>
 
-<!--    <EditText-->
-<!--        android:id="@+id/searchinfo"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@+id/textView2"-->
-<!--        android:layout_alignParentStart="true"-->
-<!--        android:layout_alignParentLeft="true"-->
-<!--        android:layout_marginStart="27dp"-->
-<!--        android:layout_marginLeft="27dp"-->
-<!--        android:layout_marginTop="26dp"-->
-<!--        android:backgroundTint="@color/white"-->
-<!--        android:ems="10"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:textColor="@color/white" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/searchbutton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="38dp"-->
-<!--        android:layout_below="@+id/textView2"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_alignParentRight="true"-->
-<!--        android:layout_marginStart="24dp"-->
-<!--        android:layout_marginLeft="24dp"-->
-<!--        android:layout_marginTop="31dp"-->
-<!--        android:layout_marginEnd="39dp"-->
-<!--        android:layout_marginRight="39dp"-->
-<!--        android:layout_toEndOf="@+id/searchinfo"-->
-<!--        android:layout_toRightOf="@+id/searchinfo"-->
-<!--        android:background="@color/white"-->
-<!--        android:fontFamily="@font/bebasregular"-->
-<!--        android:text="Search" />-->
-
     <LinearLayout
+        android:id="@+id/linear_buttons_options"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linerlayout"
@@ -139,7 +107,8 @@
             android:background="@color/halftransparent"
             android:fontFamily="@font/bebasregular"
             android:text="Hotels"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:gravity="center"/>
 
         <Space
             android:layout_width="0dp"
@@ -154,7 +123,8 @@
             android:background="@color/halftransparent"
             android:fontFamily="@font/bebasregular"
             android:text="Restaurants"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:gravity="center"/>
 
         <Space
             android:layout_width="0dp"
@@ -171,6 +141,7 @@
             android:background="@color/halftransparent"
             android:fontFamily="@font/bebasregular"
             android:text="Parks"
+            android:gravity="center"
             android:textColor="@color/white" />
 
         <Space
@@ -188,7 +159,8 @@
             android:background="@color/halftransparent"
             android:fontFamily="@font/bebasregular"
             android:text="Shops"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:gravity="center"/>
 
         <Space
             android:layout_width="0dp"
@@ -197,21 +169,12 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_below="@+id/linear_buttons_options"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="60dp">
-
-        <fragment
-            android:id="@+id/fragment"
-            android:name="edu.fsu.cs.nomadics.PlacesDialog"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-
-            />
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal">
 
     </LinearLayout>
 
