@@ -21,11 +21,17 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.InputStream;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import android.content.Context;
 
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder> {
     private JSONObject object;
+    private boolean imperialUnits;
+    String tempUnits;
+    String windUnits;
     final int CardItemCount = 40;
     String API_ICON_URL = " http://openweathermap.org/img/wn/";
 
@@ -35,8 +41,8 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
     String week_country;
     double week_latitude;
     double week_longitude;
-    int week_sunrise;
-    int week_sunset;
+    String week_sunrise;
+    String week_sunset;
     int week_timezone;
     int week_dt;
     int week_temp;
@@ -82,9 +88,20 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
         }
     }
 
-    public WeatherAdapter(JSONObject mainObject)
+    public WeatherAdapter(JSONObject mainObject, boolean isImperial)
     {
         object = mainObject;
+        imperialUnits = isImperial;
+        if(isImperial)
+        {
+            tempUnits = "F";
+            windUnits = " miles/hour";
+        }
+        else
+        {
+            tempUnits = "C";
+            windUnits = " meters/second";
+        }
     }
 
     @Override
@@ -114,31 +131,8 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
             week_longitude = coord.getDouble("lon");
             week_country = city.getString("country");
             week_timezone = city.getInt("timezone");
-            week_sunrise = city.getInt("sunrise");
-            week_sunset = city.getInt("sunset");
-
-            /*
-            week_dt = new int[week_cnt];
-            week_date = new String[week_cnt];
-            week_temp = new int[week_cnt];
-            week_feelslike = new int[week_cnt];
-            week_temp_min = new int[week_cnt];
-            week_temp_max = new int[week_cnt];
-            week_pressure = new int[week_cnt];
-            week_sea_level = new int[week_cnt];
-            week_grnd_level = new int[week_cnt];
-            week_humidity = new int[week_cnt];
-            week_temp_kf = new int[week_cnt];
-            week_clouds_all = new int[week_cnt];
-            week_weather_id = new int[week_cnt];
-            week_weather_main = new String[week_cnt];
-            week_weather_desc = new String[week_cnt];
-            week_weather_icon = new String[week_cnt];
-            week_wind_speed = new double[week_cnt];
-            week_wind_deg = new double[week_cnt];
-            week_sys_pod = new String[week_cnt];*/
-
-
+            week_sunrise = new SimpleDateFormat("HH:mm:ss MM-dd-yyyy").format(new Date(city.getInt("sunrise")* 1000L));
+            week_sunset = new SimpleDateFormat("HH:mm:ss MM-dd-yyyy").format(new Date(city.getInt("sunset")* 1000L));
 
 
             JSONArray listArray = object.getJSONArray("list");
@@ -209,17 +203,16 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
         }
 
 
-        //TODO Need to add conditions for Rain Volume and Snow Volume
         new RetrieveWeatherIconTask(holder.cardIcon).execute(API_ICON_URL+week_weather_icon+"@2x.png");
         holder.cardDate.setText(week_date);
         holder.cardTemperature.setText(week_temp + "°" );
         holder.cardSummary.setText(week_weather_desc + "\n"
-                + "Feels Like: " + week_feelslike + "°" + "\n"
-                + "Max Temperature: " + week_temp_max + "°" + "\n"
-                + "Min Temperature: " + week_temp_min + "°" + "\n"
-                + "Wind Speed: " + week_wind_speed + " " + windDirection(week_wind_deg) + "\n"
-                + "Humidity: " + week_humidity + "\n"
-                + "Pressure: " + week_pressure + "\n"
+                + "Feels Like: " + week_feelslike + "°" + tempUnits + "\n"
+                + "Max Temperature: " + week_temp_max + "°" + tempUnits + "\n"
+                + "Min Temperature: " + week_temp_min + "°" +tempUnits + "\n"
+                + "Wind Speed: " + week_wind_speed + windUnits +" " + windDirection(week_wind_deg) + "\n"
+                + "Humidity: " + week_humidity + "%" + "\n"
+                + "Pressure: " + week_pressure + " hPa" + "\n"
                 + "Sunrise: " + week_sunrise + "\n"
                 + "Sunset: " + week_sunset);
     }
