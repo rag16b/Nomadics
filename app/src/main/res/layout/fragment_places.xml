@@ -196,26 +196,41 @@
             android:layout_height="match_parent"/>
     </LinearLayout>
 
+
+    <!--  <LinearLayout
+          android:layout_width="300dp"
+          android:layout_height="300dp"
+          android:orientation="horizontal"
+          android:layout_centerHorizontal="true"
+          android:layout_alignParentBottom="true"
+          android:layout_marginBottom="60dp">
+
+          <fragment
+              android:id="@+id/fragment"
+              android:name="edu.fsu.cs.nomadics.PlacesDialog"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+
+              />
+
+      </LinearLayout> /-->/
+
+
     <LinearLayout
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="300dp"
         android:orientation="horizontal"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="60dp">
 
-        <fragment
-            android:id="@+id/fragment"
-            android:name="edu.fsu.cs.nomadics.PlacesDialog"
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:id="@+id/placesrecyclerview" >
 
-            />
+        </android.support.v7.widget.RecyclerView>
 
     </LinearLayout>
-
-
-
-
 </RelativeLayout>

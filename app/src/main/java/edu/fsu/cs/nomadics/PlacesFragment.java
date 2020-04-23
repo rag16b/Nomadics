@@ -9,6 +9,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +33,7 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -43,6 +46,15 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
     Button bookmarksbutton;
     String TAG = "PlacesFragment";
 
+
+    Button hotelbutton;
+    Button restaurantbutton;
+    Button parksbutton;
+    Button shopsbutton;
+
+    private ArrayList<String> names = new ArrayList<>();
+    private RecyclerView placesrecyclerview;
+
     public PlacesFragment() {
         // Required empty public constructor
     }
@@ -52,6 +64,16 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_places, container, false);
 
+        names.add("Hotel 1");
+        names.add("Hotel 2");
+        names.add("Hotel 3");
+
+        placesrecyclerview = rootView.findViewById(R.id.placesrecyclerview);
+        placesrecyclerview.setLayoutManager((new LinearLayoutManager(getContext())));
+        PlacesRecyclerViewAdapter adapter = new PlacesRecyclerViewAdapter(getActivity(), names);
+        placesrecyclerview.setAdapter(adapter);
+
+
         weatherbutton = (Button) rootView.findViewById(R.id.weatherb);
         homebutton = (Button) rootView.findViewById(R.id.homebutton);
         bookmarksbutton = (Button) rootView.findViewById(R.id.bookmarkb);
@@ -59,6 +81,18 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
         weatherbutton.setOnClickListener(this);
         homebutton.setOnClickListener(this);
         bookmarksbutton.setOnClickListener(this);
+
+
+        hotelbutton = (Button) rootView.findViewById(R.id.hotelsbutton);
+        restaurantbutton = (Button) rootView.findViewById(R.id.restaurantsbutton);
+        parksbutton = (Button) rootView.findViewById(R.id.parksbutton);
+        shopsbutton = (Button) rootView.findViewById(R.id.shopsbutton);
+
+        hotelbutton.setOnClickListener(this);
+        restaurantbutton.setOnClickListener(this);
+        parksbutton.setOnClickListener(this);
+        shopsbutton.setOnClickListener(this);
+
 
         //initialize places api
         String apiKey = "AIzaSyAh6XsP0jo_LY2dzu1d-YQmBe-EqoXxzas";
@@ -89,25 +123,25 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
 
                 client.fetchPlace(request).addOnSuccessListener(
                         new OnSuccessListener<FetchPlaceResponse>() {
-                    @Override
-                    public void onSuccess(FetchPlaceResponse response) {
-                        //get attributes of place
-                        Place place = response.getPlace();
-                        String id = place.getId();
-                        String name = place.getName();
-                        String address = place.getAddress();
-                        String phone = place.getPhoneNumber();
-                        OpeningHours hours = place.getOpeningHours();
-                        List<PhotoMetadata> photos = place.getPhotoMetadatas();
+                            @Override
+                            public void onSuccess(FetchPlaceResponse response) {
+                                //get attributes of place
+                                Place place = response.getPlace();
+                                String id = place.getId();
+                                String name = place.getName();
+                                String address = place.getAddress();
+                                String phone = place.getPhoneNumber();
+                                OpeningHours hours = place.getOpeningHours();
+                                List<PhotoMetadata> photos = place.getPhotoMetadatas();
 
-                        //Launch dialog
+                                //Launch dialog
 
 //                        Toast.makeText(rootView.getContext(), hours.getWeekdayText().toString(), Toast.LENGTH_LONG).show();
 
 //                        startActivity(new Intent(Intent.ACTION_DIAL,
 //                                Uri.fromParts("tel", phone, null)));
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.e(TAG, "Place not found: " + e.getMessage());
@@ -134,6 +168,14 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
             mListener.onReturnHome();
         if (bookmarksbutton.isPressed())
             mListener.onStartBookmarks();
+        /*if(hotelbutton.isPressed())
+
+        if(restaurantbutton.isPressed())
+
+        if(parksbutton.isPressed())
+
+        if(shopsbutton.isPressed())
+          */
     }
 
 
@@ -162,5 +204,13 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
 
         void onStartBookmarks();
     }
+
+
+
+
+
+
+
+
 
 }
