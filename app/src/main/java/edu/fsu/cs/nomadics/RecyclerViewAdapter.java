@@ -24,9 +24,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private Context context;
     private ArrayList<String> bookmarkNames = new ArrayList<>();
     private BookMarkFileIO bmarksIO;
+    private OnBookmarkClickListener bookmarkClickListener;
 
     public RecyclerViewAdapter(Context context_C, ArrayList<String> bookmarkNames_C) {
             context = context_C;
+            if (context instanceof OnBookmarkClickListener)
+                bookmarkClickListener = (OnBookmarkClickListener) context;
+
             bookmarkNames = bookmarkNames_C;
             bmarksIO = new BookMarkFileIO(context);
     }
@@ -51,19 +55,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Log.d(TAG, "onClick: clicked on: " + bookmarkNames.get(position));
                 //Toast.makeText(context, bookmarkNames.get(position), Toast.LENGTH_SHORT).show();
 
-                Bundle bundle = new Bundle();
-                bundle.putString("name",bookmarkNames.get(position));
-                bundle.putDouble("lat",bmarksIO.getLat(position));
-                bundle.putDouble("long",bmarksIO.getLong(position));
-
-                AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                MapsFragment fragment = new MapsFragment();
-                fragment.setArguments(bundle);
-                activity.getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.frame, fragment)
-                        .addToBackStack(null)
-                        .commit();
+                //open map
+                bookmarkClickListener.onBookmarkClickListener(bookmarkNames.get(position),
+                        bmarksIO.getLat(position), bmarksIO.getLong(position));
             }
         });
 
@@ -98,5 +92,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             deleteButton = itemView.findViewById(R.id.deleteButton);
             viewHolderLayout = itemView.findViewById(R.id.viewholder_layout);
         }
+    }
+
+    public interface OnBookmarkClickListener {
+        void onBookmarkClickListener(String name, double lat, double lon);
     }
 }

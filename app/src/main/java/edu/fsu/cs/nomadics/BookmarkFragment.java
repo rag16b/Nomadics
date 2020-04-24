@@ -104,5 +104,4 @@ public class BookmarkFragment extends Fragment implements View.OnClickListener {
         void onStartWeather();
         void onStartPlaces();
     }
-
 }

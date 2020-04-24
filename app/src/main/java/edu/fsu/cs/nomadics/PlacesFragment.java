@@ -56,6 +56,7 @@ import java.util.List;
 public class PlacesFragment extends Fragment implements View.OnClickListener,
         PlacesRecyclerViewAdapter.OnRecyclerClickListener {
     private OnPlacesInteractionListener mListener;
+    private OnAddressClickListener addressClickListener;
 
     String TAG = "PlacesFragment";
     boolean hotel, restaurant, park, attraction;
@@ -181,20 +182,9 @@ public class PlacesFragment extends Fragment implements View.OnClickListener,
                         image.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Bundle bundle = new Bundle();
-                                bundle.putString("name", name);
-                                bundle.putDouble("lat",latLng.latitude);
-                                bundle.putDouble("long", latLng.longitude);
-
-                                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                                MapsFragment fragment = new MapsFragment();
-                                fragment.setArguments(bundle);
-                                activity.getSupportFragmentManager()
-                                        .beginTransaction()
-                                        .replace(R.id.frame, fragment)
-                                        .addToBackStack(null)
-                                        .commit();
                                 dialog.dismiss();
+                                addressClickListener.onAddressClickListener(name, latLng.latitude,
+                                        latLng.longitude);
                             }
                         });
 
@@ -209,24 +199,9 @@ public class PlacesFragment extends Fragment implements View.OnClickListener,
                         textViewAddress.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-
-                                double latitude = latLng.latitude;
-                                double longitude = latLng.longitude;
-
-                                Bundle bundle = new Bundle();
-                                bundle.putString("name",name);
-                                bundle.putDouble("lat",latitude);
-                                bundle.putDouble("long",longitude);
-
-                                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                                MapsFragment fragment = new MapsFragment();
-                                fragment.setArguments(bundle);
-                                activity.getSupportFragmentManager()
-                                        .beginTransaction()
-                                        .replace(R.id.frame, fragment)
-                                        .addToBackStack(null)
-                                        .commit();
                                 dialog.dismiss();
+                                addressClickListener.onAddressClickListener(name, latLng.latitude,
+                                        latLng.longitude);
                             }
                         });
 
@@ -318,7 +293,10 @@ public class PlacesFragment extends Fragment implements View.OnClickListener,
         super.onAttach(context);
         if (context instanceof OnPlacesInteractionListener) {
             mListener = (OnPlacesInteractionListener) context;
-        } else {
+        }
+        if (context instanceof OnAddressClickListener)
+            addressClickListener = (OnAddressClickListener) context;
+        else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
@@ -440,24 +418,13 @@ public class PlacesFragment extends Fragment implements View.OnClickListener,
         final double click_lat = latitude;
         final double click_long = longitude;
 
+        //map opens if image is pressed
         ImageView image = dialogView.findViewById(R.id.imageView);
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("name",click_name);
-                bundle.putDouble("lat",click_lat);
-                bundle.putDouble("long",click_long);
-
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                MapsFragment fragment = new MapsFragment();
-                fragment.setArguments(bundle);
-                activity.getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.frame, fragment)
-                        .addToBackStack(null)
-                        .commit();
                 dialog.dismiss();
+                addressClickListener.onAddressClickListener(click_name, click_lat, click_long);
             }
         });
 
@@ -477,6 +444,7 @@ public class PlacesFragment extends Fragment implements View.OnClickListener,
             }
         });
 
+        //bookmark the location
         ImageButton save = dialogView.findViewById(R.id.placesbookmarkbutton);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -489,5 +457,9 @@ public class PlacesFragment extends Fragment implements View.OnClickListener,
         });
 
         dialog.show();
+    }
+
+    public interface OnAddressClickListener {
+        void onAddressClickListener(String name, double lat, double lon);
     }
 }

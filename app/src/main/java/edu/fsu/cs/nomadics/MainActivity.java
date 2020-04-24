@@ -12,8 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
-public class MainActivity extends AppCompatActivity implements MainFragment.OnFragmentInteractionListener, PlacesFragment.OnPlacesInteractionListener,
-        BookmarkFragment.OnBookmarkInteractionListener, WeatherFragment.OnWeatherInteractionListener, MapsFragment.OnMapsInteractionListener {
+public class MainActivity extends AppCompatActivity implements
+        MainFragment.OnFragmentInteractionListener, PlacesFragment.OnPlacesInteractionListener,
+        BookmarkFragment.OnBookmarkInteractionListener,
+        WeatherFragment.OnWeatherInteractionListener, MapsFragment.OnMapsInteractionListener,
+        PlacesFragment.OnAddressClickListener, RecyclerViewAdapter.OnBookmarkClickListener {
     MainFragment mainfragment;
     WeatherFragment weatherfragment;
     PlacesFragment placesfragment;
@@ -117,5 +120,24 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
         ft.replace(R.id.frame, mainfragment);
         ft.addToBackStack(null);
         ft.commit();
+    }
+
+    @Override
+    public void onAddressClickListener(String name, double lat, double lon) {
+        Bundle bundle = new Bundle();
+        bundle.putString("name", name);
+        bundle.putDouble("lat", lat);
+        bundle.putDouble("long", lon);
+
+        MapsFragment fragment = new MapsFragment();
+        fragment.setArguments(bundle);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame, fragment)
+                .addToBackStack(null).commit();
+    }
+
+    @Override
+    public void onBookmarkClickListener(String name, double lat, double lon) {
+        onAddressClickListener(name, lat, lon);
     }
 }
