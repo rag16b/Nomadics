@@ -18,9 +18,13 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
     Button homebutton;
     Button weatherbutton;
     Button bookmarksbutton;
-    Button searchbutton;
 
+    String TAG = "PlacesFragment";
 
+    Button hotelbutton;
+    Button restaurantbutton;
+    Button parksbutton;
+    Button shopsbutton;
 
 
     public PlacesFragment() {
@@ -36,12 +40,10 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
         weatherbutton = (Button) rootView.findViewById(R.id.weatherb);
         homebutton = (Button) rootView.findViewById(R.id.homebutton);
         bookmarksbutton = (Button) rootView.findViewById(R.id.bookmarkb);
-        searchbutton = (Button) rootView.findViewById(R.id.searchbutton);
 
         weatherbutton.setOnClickListener(this);
         homebutton.setOnClickListener(this);
         bookmarksbutton.setOnClickListener(this);
-        searchbutton.setOnClickListener(this);
 
         return rootView;
     }
@@ -83,8 +85,6 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
         void onStartWeather();
 
         void onStartBookmarks();
-
-        void onStartMaps();
     }
 
 }
