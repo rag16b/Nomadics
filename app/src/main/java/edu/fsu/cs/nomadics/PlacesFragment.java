@@ -387,6 +387,8 @@ public class PlacesFragment extends Fragment implements View.OnClickListener, Pl
         void onStartWeather();
 
         void onStartBookmarks();
+
+        void onStartMaps();
     }
 
     @Override
