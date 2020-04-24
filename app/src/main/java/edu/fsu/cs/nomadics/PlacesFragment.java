@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Paint;
 import android.graphics.Picture;
 import android.icu.text.DateIntervalInfo;
 import android.net.Uri;
@@ -47,6 +48,7 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
@@ -54,7 +56,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class PlacesFragment extends Fragment implements View.OnClickListener{
+public class PlacesFragment extends Fragment implements View.OnClickListener, PlacesRecyclerViewAdapter.OnRecyclerClickListener {
     private OnPlacesInteractionListener mListener;
 
     String TAG = "PlacesFragment";
@@ -62,6 +64,7 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
     final private String apiKey = "AIzaSyAh6XsP0jo_LY2dzu1d-YQmBe-EqoXxzas";
     //arbitrary location in miami
     String latlong = "25.794184,-80.214747";
+    PlacesClient client;
 
     View rootView;
     Button homebutton;
@@ -70,9 +73,11 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
     Button hotelsbutton;
     Button restaurantbutton;
     Button parksbutton;
-    Button shopsbutton;
+    Button attractionsbutton;
 
-    private ArrayList<String> names = new ArrayList<>();
+    private ArrayList<String> names, ids, addrs;
+    private ArrayList<Double> lat, lon;
+    private ArrayList<JSONObject> photos;
     private RecyclerView placesrecyclerview;
 
     public PlacesFragment() {
@@ -84,47 +89,44 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_places, container, false);
 
-        names.add("Hotel 1");
-        names.add("Hotel 2");
-        names.add("Hotel 3");
-
+        //set up recycler view
         placesrecyclerview = rootView.findViewById(R.id.placesrecyclerview);
         placesrecyclerview.setLayoutManager((new LinearLayoutManager(getContext())));
-        PlacesRecyclerViewAdapter adapter = new PlacesRecyclerViewAdapter(getActivity(), names);
-        placesrecyclerview.setAdapter(adapter);
 
+        //initialize arrays for recycler view
+        names = new ArrayList<>();
+        ids = new ArrayList<>();
+        addrs = new ArrayList<>();
+        lat = new ArrayList<>();
+        lon = new ArrayList<>();
+        photos = new ArrayList<>();
 
         weatherbutton = (Button) rootView.findViewById(R.id.weatherb);
         homebutton = (Button) rootView.findViewById(R.id.homebutton);
         bookmarksbutton = (Button) rootView.findViewById(R.id.bookmarkb);
         hotelsbutton = (Button) rootView.findViewById(R.id.hotelsbutton);
+        restaurantbutton = (Button) rootView.findViewById(R.id.restaurantsbutton);
+        parksbutton = (Button) rootView.findViewById(R.id.parksbutton);
+        attractionsbutton = (Button) rootView.findViewById(R.id.attractionsbutton);
 
         weatherbutton.setOnClickListener(this);
         homebutton.setOnClickListener(this);
         bookmarksbutton.setOnClickListener(this);
         hotelsbutton.setOnClickListener(this);
+        restaurantbutton.setOnClickListener(this);
+        parksbutton.setOnClickListener(this);
+        attractionsbutton.setOnClickListener(this);
 
         hotel = false;
         restaurant = false;
         park = false;
         attraction = false;
 
-
-        restaurantbutton = (Button) rootView.findViewById(R.id.restaurantsbutton);
-        parksbutton = (Button) rootView.findViewById(R.id.parksbutton);
-        shopsbutton = (Button) rootView.findViewById(R.id.shopsbutton);
-
-        restaurantbutton.setOnClickListener(this);
-        parksbutton.setOnClickListener(this);
-        shopsbutton.setOnClickListener(this);
-
-
         //initialize places api
-
         if (!Places.isInitialized())
             Places.initialize(rootView.getContext(), apiKey);
 
-        final PlacesClient client = Places.createClient(rootView.getContext());
+        client = Places.createClient(rootView.getContext());
 
         //initialize autcomplete search
         AutocompleteSupportFragment auto = (AutocompleteSupportFragment)getChildFragmentManager()
@@ -146,6 +148,7 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
                 final FetchPlaceRequest request = FetchPlaceRequest.newInstance(place.getId(),
                         fields);
 
+                //gets result of autocomplete
                 client.fetchPlace(request).addOnSuccessListener(
                         new OnSuccessListener<FetchPlaceResponse>() {
                     @Override
@@ -157,6 +160,7 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
                         final String phone = place.getPhoneNumber();
                         OpeningHours openHours = place.getOpeningHours();
                         List<PhotoMetadata> photo = place.getPhotoMetadatas();
+                        final LatLng latLng = place.getLatLng();
 
                         //Launch dialog
                         final AlertDialog.Builder builder = new AlertDialog.Builder(rootView.getContext());
@@ -184,6 +188,13 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
                         //address of place
                         TextView textViewAddress = dialogView.findViewById(R.id.textViewAddress);
                         textViewAddress.setText(address);
+                        textViewAddress.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+                        textViewAddress.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                //launch maps
+                            }
+                        });
 
                         //hours of place
                         TextView textViewHours = dialogView.findViewById(R.id.textViewHoursOpen);
@@ -196,6 +207,14 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
                             hours = hours.replace("[", "").replace("]","");
                         }
                         textViewHours.setText(hours);
+
+                        ImageButton save = dialogView.findViewById(R.id.placesbookmarkbutton);
+                        save.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                //save bookmark
+                            }
+                        });
 
                         ImageButton call = dialogView.findViewById(R.id.callbutton);
                         if (phone == null)
@@ -217,7 +236,7 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
                                 dialog.dismiss();
                             }
                         });
-
+                        Log.d(TAG, "onSuccess: "+place.getId());
                         dialog.show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -243,14 +262,19 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         if (weatherbutton.isPressed())
             mListener.onStartWeather();
-        if (homebutton.isPressed())
+        else if (homebutton.isPressed())
             mListener.onReturnHome();
-        if (bookmarksbutton.isPressed())
+        else if (bookmarksbutton.isPressed())
             mListener.onStartBookmarks();
-        if (hotelsbutton.isPressed())
+        else if (hotelsbutton.isPressed())
             loadPlaces("lodging");
+        else if (restaurantbutton.isPressed())
+            loadPlaces("restaurant");
+        else if (parksbutton.isPressed())
+            loadPlaces("park");
+        else if (attractionsbutton.isPressed())
+            loadPlaces("tourist_attraction");
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -269,17 +293,44 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
         mListener = null;
     }
 
+    //loads the recycler view with
     private void loadPlaces(String type) {
-        if (type.equals("lodging") && hotel)
-            return;
-        if (type.equals("restaurant") && restaurant)
-            return;
-        if (type.equals("park") && park)
-            return;
-        if (type.equals("tourist_attraction") && attraction)
-            return;
+        //checking so we don't have to load the same data each click
+        if (type.equals("lodging")) {
+            if (hotel)
+                return;
+            hotel = true;
+            restaurant = false;
+            park = false;
+            attraction = false;
+        } else if (type.equals("restaurant")) {
+            if (restaurant)
+                return;
+            hotel = false;
+            restaurant = true;
+            park = false;
+            attraction = false;
+        } else if (type.equals("park")) {
+            if (park)
+                return;
+            hotel = false;
+            restaurant = false;
+            park = true;
+            attraction = false;
+        }
+        else if (type.equals("tourist_attraction") && attraction) {
+            hotel = false;
+            restaurant = false;
+            park = false;
+            attraction = true;
+        }
+        names.clear();
+        addrs.clear();
+        ids.clear();
+        lat.clear();
+        lon.clear();
 
-        String radius = "1000";
+        String radius = "16000";
         Toast.makeText(rootView.getContext(), "Searching", Toast.LENGTH_SHORT).show();
 
         String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?"
@@ -290,16 +341,40 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.e("Response = ", response.toString());
-                        Toast.makeText(rootView.getContext(), response.toString(), Toast.LENGTH_LONG).show();
+                        Log.i("Response", response.toString());
+                        try {
+                            JSONArray array = response.getJSONArray("results");
+                            Log.d(TAG, "Setting up recycler view");
+                            PlacesRecyclerViewAdapter adapter = null;
+
+                            for (int i = 0; i < array.length(); ++i) {
+                                names.add(array.getJSONObject(i).getString("name"));
+                                ids.add(array.getJSONObject(i).getString("id"));
+
+                                if (array.getJSONObject(i).has("formatted_address"))
+                                    addrs.add(array.getJSONObject(i).getString("formatted_address"));
+                                else
+                                    addrs.add(null);
+
+                                //get gelocation
+                                lat.add(array.getJSONObject(i).getJSONObject("geometry")
+                                        .getJSONObject("location").getDouble("lat"));
+                                lon.add(array.getJSONObject(i).getJSONObject("geometry")
+                                        .getJSONObject("location").getDouble("lng"));
+                            }
+                            adapter = new PlacesRecyclerViewAdapter(getActivity(), names,
+                                    ids, addrs, lat, lon,PlacesFragment.this);
+                            placesrecyclerview.setAdapter(adapter);
+                        }
+                        catch (Exception e){
+                            Log.e("Exception:", e.getMessage());
+                        }
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // TODO: Handle error
                         Log.e("Error ", error.toString());
-                        Toast.makeText(rootView.getContext(), error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
         RequestQueue queue = Volley.newRequestQueue(rootView.getContext());
@@ -314,4 +389,38 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
         void onStartBookmarks();
     }
 
+    @Override
+    public void onRecyclerClickListener(String name, String addrP, String id, double latitude, double longitude) {
+        //Launch dialog
+        final AlertDialog.Builder builder = new AlertDialog.Builder(rootView.getContext());
+        View dialogView = getLayoutInflater().inflate(R.layout.places_dialog2, null);
+        builder.setView(dialogView);
+        final AlertDialog dialog = builder.create();
+
+        //name of place
+        TextView textViewName = dialogView.findViewById(R.id.textViewName);
+        textViewName.setText(name);
+
+        //address of place
+        TextView textViewAddress = dialogView.findViewById(R.id.textViewAddress);
+        textViewAddress.setText(addrP);
+
+        ImageButton exit = dialogView.findViewById(R.id.exitbutton);
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        ImageButton save = dialogView.findViewById(R.id.placesbookmarkbutton);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //save bookmark
+            }
+        });
+
+        dialog.show();
+    }
 }

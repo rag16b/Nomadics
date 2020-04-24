@@ -136,8 +136,6 @@
             android:layout_width="0dp"
             android:layout_weight="5"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/restaurantsbutton"
-            android:layout_toRightOf="@+id/restaurantsbutton"
             android:background="@color/halftransparent"
             android:fontFamily="@font/bebasregular"
             android:text="Parks"
@@ -150,15 +148,13 @@
             android:layout_height="match_parent"/>
 
         <Button
-            android:id="@+id/shopsbutton"
+            android:id="@+id/attractionsbutton"
             android:layout_width="0dp"
             android:layout_weight="5"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/parksbutton"
-            android:layout_toRightOf="@+id/parksbutton"
             android:background="@color/halftransparent"
             android:fontFamily="@font/bebasregular"
-            android:text="Shops"
+            android:text="Attractions"
             android:textColor="@color/white"
             android:gravity="center"/>
 
@@ -170,18 +166,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="60dp">
+        android:layout_below="@+id/linear_buttons_options"
+        android:layout_marginTop="25dp">
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/placesrecyclerview" >
-
-        </android.support.v7.widget.RecyclerView>
-
+            android:id="@+id/placesrecyclerview" />
     </LinearLayout>
 </RelativeLayout>
