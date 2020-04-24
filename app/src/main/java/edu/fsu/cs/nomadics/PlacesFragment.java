@@ -144,7 +144,7 @@ public class PlacesFragment extends Fragment implements View.OnClickListener, Pl
                 //must use client to get info like address, phone number, etc
                 List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME,
                         Place.Field.ADDRESS, Place.Field.PHONE_NUMBER, Place.Field.OPENING_HOURS,
-                        Place.Field.PHOTO_METADATAS);
+                        Place.Field.PHOTO_METADATAS, Place.Field.LAT_LNG);
                 final FetchPlaceRequest request = FetchPlaceRequest.newInstance(place.getId(),
                         fields);
 
@@ -155,7 +155,7 @@ public class PlacesFragment extends Fragment implements View.OnClickListener, Pl
                     public void onSuccess(FetchPlaceResponse response) {
                         //get attributes of place
                         Place place = response.getPlace();
-                        String name = place.getName();
+                        final String name = place.getName();
                         String address = place.getAddress();
                         final String phone = place.getPhoneNumber();
                         OpeningHours openHours = place.getOpeningHours();
@@ -212,7 +212,8 @@ public class PlacesFragment extends Fragment implements View.OnClickListener, Pl
                         save.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                //save bookmark
+                                BookMarkFileIO bmarksIO = new BookMarkFileIO(getContext());
+                                bmarksIO.add(name, latLng.longitude, latLng.latitude);
                             }
                         });
 
@@ -398,6 +399,9 @@ public class PlacesFragment extends Fragment implements View.OnClickListener, Pl
         View dialogView = getLayoutInflater().inflate(R.layout.places_dialog2, null);
         builder.setView(dialogView);
         final AlertDialog dialog = builder.create();
+        final String click_name = name;
+        final double click_lat = latitude;
+        final double click_long = longitude;
 
         //name of place
         TextView textViewName = dialogView.findViewById(R.id.textViewName);
@@ -419,7 +423,8 @@ public class PlacesFragment extends Fragment implements View.OnClickListener, Pl
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //save bookmark
+                BookMarkFileIO bmarksIO = new BookMarkFileIO(getContext());
+                bmarksIO.add(click_name, click_long, click_lat);
             }
         });
 
