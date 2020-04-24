@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.fsu.cs.nomadics">
-<<<<<<< HEAD
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-
-=======
     <uses-permission android:name="android.permission.INTERNET"/>
     <permission android:name="android.permission.CALL_PHONE"/>
->>>>>>> parent of ecbf7f5... Merge pull request #3 from trd16/ryan
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

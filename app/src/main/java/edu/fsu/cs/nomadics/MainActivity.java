@@ -14,13 +14,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
-
-<<<<<<< HEAD
-public class MainActivity extends AppCompatActivity implements MainFragment.OnFragmentInteractionListener, PlacesFragment.OnPlacesInteractionListener,
-        BookmarkFragment.OnBookmarkInteractionListener, WeatherFragment.OnWeatherInteractionListener, MapsFragment.OnMapsInteractionListener {
-=======
-public class MainActivity extends AppCompatActivity implements PlacesDialog.OnFragmentInteractionListener, MainFragment.OnFragmentInteractionListener, PlacesFragment.OnPlacesInteractionListener, BookmarkFragment.OnBookmarkInteractionListener, WeatherFragment.OnWeatherInteractionListener {
->>>>>>> parent of ecbf7f5... Merge pull request #3 from trd16/ryan
+public class MainActivity extends AppCompatActivity implements PlacesDialog.OnFragmentInteractionListener, MainFragment.OnFragmentInteractionListener,
+        PlacesFragment.OnPlacesInteractionListener, BookmarkFragment.OnBookmarkInteractionListener, WeatherFragment.OnWeatherInteractionListener,
+        MapsFragment.OnMapsInteractionListener {
     MainFragment mainfragment;
     WeatherFragment weatherfragment;
     PlacesFragment placesfragment;
@@ -29,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements PlacesDialog.OnFr
 
     FrameLayout fl;
     FragmentTransaction trans;
+
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1346;
 
     //this function is used to startup the activity and sets the screen to automatically be fullscreen; it also calls onMain to set the first view as the main fragment
     @Override
@@ -53,12 +51,6 @@ public class MainActivity extends AppCompatActivity implements PlacesDialog.OnFr
         fl.removeAllViews();
         getSupportFragmentManager().beginTransaction().replace(R.id.frame, mainfragment, tag).commit();
 
-
-
-    }
-
-    @Override
-    public void onStartMaps(){
 
 
     }

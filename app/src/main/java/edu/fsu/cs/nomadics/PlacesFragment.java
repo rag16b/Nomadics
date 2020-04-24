@@ -44,19 +44,13 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
     Button homebutton;
     Button weatherbutton;
     Button bookmarksbutton;
-<<<<<<< HEAD
-    Button searchbutton;
 
-
-=======
     String TAG = "PlacesFragment";
-
 
     Button hotelbutton;
     Button restaurantbutton;
     Button parksbutton;
     Button shopsbutton;
->>>>>>> parent of ecbf7f5... Merge pull request #3 from trd16/ryan
 
     private ArrayList<String> names = new ArrayList<>();
     private RecyclerView placesrecyclerview;
@@ -83,12 +77,10 @@ public class PlacesFragment extends Fragment implements View.OnClickListener{
         weatherbutton = (Button) rootView.findViewById(R.id.weatherb);
         homebutton = (Button) rootView.findViewById(R.id.homebutton);
         bookmarksbutton = (Button) rootView.findViewById(R.id.bookmarkb);
-        searchbutton = (Button) rootView.findViewById(R.id.searchbutton);
 
         weatherbutton.setOnClickListener(this);
         homebutton.setOnClickListener(this);
         bookmarksbutton.setOnClickListener(this);
-        searchbutton.setOnClickListener(this);
 
 
         hotelbutton = (Button) rootView.findViewById(R.id.hotelsbutton);

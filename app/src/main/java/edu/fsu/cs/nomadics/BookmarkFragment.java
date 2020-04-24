@@ -10,12 +10,8 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
-=======
 import android.widget.Button;
-
 import java.util.ArrayList;
->>>>>>> parent of ecbf7f5... Merge pull request #3 from trd16/ryan
 
 
 public class BookmarkFragment extends Fragment implements View.OnClickListener {
@@ -67,8 +63,6 @@ public class BookmarkFragment extends Fragment implements View.OnClickListener {
 
         return rootView;
     }
-<<<<<<< HEAD
-=======
 
     private ArrayList<String> getNames(){
         ArrayList<String> temp = new ArrayList<>();
@@ -87,7 +81,6 @@ public class BookmarkFragment extends Fragment implements View.OnClickListener {
         if (placesbutton.isPressed())
             mListener.onStartPlaces();
     }
->>>>>>> parent of ecbf7f5... Merge pull request #3 from trd16/ryan
 
     @Override
     public void onAttach(Context context) {
