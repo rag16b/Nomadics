@@ -1,14 +1,11 @@
 package edu.fsu.cs.nomadics;
 
-
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import java.util.ArrayList;
 
 public class BookmarkFragment extends Fragment {
 
@@ -27,24 +24,6 @@ public class BookmarkFragment extends Fragment {
 
 
         return rootView;
-    }
-  
-    private ArrayList<String> getNames(){
-        ArrayList<String> temp = new ArrayList<>();
-        for (int i = 0; i < bmNames.size(); i++){
-            temp.add(bmNames.get(i).first);
-        }
-        return temp;
-    }
-
-    @Override
-    public void onClick(View view) {
-        if (homebutton.isPressed())
-            mListener.onReturnHome();
-        if (weatherbutton.isPressed())
-            mListener.onStartWeather();
-        if (placesbutton.isPressed())
-            mListener.onStartPlaces();
     }
 
     @Override

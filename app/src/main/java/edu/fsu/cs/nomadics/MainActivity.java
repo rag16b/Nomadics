@@ -5,20 +5,23 @@ package edu.fsu.cs.nomadics;
 //retrieved back arrow from: https://www.pikpng.com/pngvi/iimiwib_go-back-button-comments-back-button-png-icon/
 
 
+import android.Manifest;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
-public class MainActivity extends AppCompatActivity implements PlacesDialog.OnFragmentInteractionListener, MainFragment.OnFragmentInteractionListener, 
-          PlacesFragment.OnPlacesInteractionListener, BookmarkFragment.OnBookmarkInteractionListener, WeatherFragment.OnWeatherInteractionListener, 
-          MapsFragment.OnMapsInteractionListener {
+
+public class MainActivity extends AppCompatActivity implements MainFragment.OnFragmentInteractionListener, PlacesFragment.OnPlacesInteractionListener,
+        BookmarkFragment.OnBookmarkInteractionListener, WeatherFragment.OnWeatherInteractionListener, MapsFragment.OnMapsInteractionListener {
     MainFragment mainfragment;
     WeatherFragment weatherfragment;
     PlacesFragment placesfragment;
     BookmarkFragment bookmarkfragment;
+    MapsFragment mapsfragment;
 
     FrameLayout fl;
     FragmentTransaction trans;
@@ -32,6 +35,10 @@ public class MainActivity extends AppCompatActivity implements PlacesDialog.OnFr
         setContentView(R.layout.activity_main);
 
         onMain();
+
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                LOCATION_PERMISSION_REQUEST_CODE);
     }
 
     public void onMain() {
@@ -89,6 +96,20 @@ public class MainActivity extends AppCompatActivity implements PlacesDialog.OnFr
         ft.addToBackStack(null);
         ft.commit();
 
+    }
+
+    @Override
+    public void onStartMaps() {
+        mapsfragment = new MapsFragment();
+        String tag = MapsFragment.class.getCanonicalName();
+        FrameLayout f1 = (FrameLayout) findViewById(R.id.frame);
+        f1.removeAllViews();
+
+        FragmentManager fm = this.getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.frame, mapsfragment);
+        ft.addToBackStack(null);
+        ft.commit();
     }
 
     @Override
