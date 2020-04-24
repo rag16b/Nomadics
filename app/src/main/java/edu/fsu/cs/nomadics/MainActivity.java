@@ -1,9 +1,7 @@
 package edu.fsu.cs.nomadics;
 
-
 //retrieved background from: https://www.designbolts.com/2015/07/25/40-best-iphone-6-wallpapers-backgrounds-in-hd-quality/
 //retrieved back arrow from: https://www.pikpng.com/pngvi/iimiwib_go-back-button-comments-back-button-png-icon/
-
 
 import android.Manifest;
 import android.os.Bundle;
@@ -14,16 +12,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
-
-public class MainActivity extends AppCompatActivity implements  MainFragment.OnFragmentInteractionListener, PlacesFragment.OnPlacesInteractionListener, BookmarkFragment.OnBookmarkInteractionListener, WeatherFragment.OnWeatherInteractionListener {
+public class MainActivity extends AppCompatActivity implements MainFragment.OnFragmentInteractionListener, PlacesFragment.OnPlacesInteractionListener, BookmarkFragment.OnBookmarkInteractionListener, WeatherFragment.OnWeatherInteractionListener {
     MainFragment mainfragment;
     WeatherFragment weatherfragment;
     PlacesFragment placesfragment;
     BookmarkFragment bookmarkfragment;
     MapsFragment mapsfragment;
-
-    FrameLayout fl;
-    FragmentTransaction trans;
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1346;
 
@@ -43,15 +37,11 @@ public class MainActivity extends AppCompatActivity implements  MainFragment.OnF
 
     //this function is used to set the view to the mainfragment
     public void onMain() {
-
         mainfragment = new MainFragment();
         String tag = MainFragment.class.getCanonicalName();
         FrameLayout fl = (FrameLayout) findViewById(R.id.frame);
         fl.removeAllViews();
         getSupportFragmentManager().beginTransaction().replace(R.id.frame, mainfragment, tag).commit();
-
-
-
     }
 
     //this function is utilized when the weather button is pressed to transition to the weather fragment
@@ -67,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements  MainFragment.OnF
         ft.replace(R.id.frame, weatherfragment);
         ft.addToBackStack(null);
         ft.commit();
-
     }
 
     //this fragment is utilized when the places button is pressed to transition to the places fragment
@@ -83,7 +72,6 @@ public class MainActivity extends AppCompatActivity implements  MainFragment.OnF
         ft.replace(R.id.frame, placesfragment);
         ft.addToBackStack(null);
         ft.commit();
-
     }
 
     //this function is utilized when the bookmarks button is pressed to transition to that fragment
@@ -99,7 +87,6 @@ public class MainActivity extends AppCompatActivity implements  MainFragment.OnF
         ft.replace(R.id.frame, bookmarkfragment);
         ft.addToBackStack(null);
         ft.commit();
-
     }
     
     //this function is used in the other fragments when the button is pressed to return to the main fragment
@@ -130,5 +117,4 @@ public class MainActivity extends AppCompatActivity implements  MainFragment.OnF
         ft.addToBackStack(null);
         ft.commit();
     }
-
 }
