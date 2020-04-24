@@ -15,8 +15,12 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 
+<<<<<<< HEAD
 public class MainActivity extends AppCompatActivity implements MainFragment.OnFragmentInteractionListener, PlacesFragment.OnPlacesInteractionListener,
         BookmarkFragment.OnBookmarkInteractionListener, WeatherFragment.OnWeatherInteractionListener, MapsFragment.OnMapsInteractionListener {
+=======
+public class MainActivity extends AppCompatActivity implements PlacesDialog.OnFragmentInteractionListener, MainFragment.OnFragmentInteractionListener, PlacesFragment.OnPlacesInteractionListener, BookmarkFragment.OnBookmarkInteractionListener, WeatherFragment.OnWeatherInteractionListener {
+>>>>>>> parent of ecbf7f5... Merge pull request #3 from trd16/ryan
     MainFragment mainfragment;
     WeatherFragment weatherfragment;
     PlacesFragment placesfragment;
@@ -26,8 +30,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
     FrameLayout fl;
     FragmentTransaction trans;
 
-    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1346;
-
+    //this function is used to startup the activity and sets the screen to automatically be fullscreen; it also calls onMain to set the first view as the main fragment
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
                 LOCATION_PERMISSION_REQUEST_CODE);
     }
 
+    //this function is used to set the view to the mainfragment
     public void onMain() {
 
         mainfragment = new MainFragment();
@@ -53,6 +57,23 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
 
     }
 
+    @Override
+    public void onStartMaps(){
+
+
+    }
+
+    //function used to open phone application after button clicked in places dialog
+    @Override
+    public void onStartPhone(){
+
+
+    }
+
+
+
+
+    //this function is utilized when the weather button is pressed to transition to the weather fragment
     @Override
     public void onStartWeather() {
         weatherfragment = new WeatherFragment();
@@ -68,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
 
     }
 
+    //this fragment is utilized when the places button is pressed to transition to the places fragment
     @Override
     public void onStartPlaces() {
         placesfragment = new PlacesFragment();
@@ -83,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
 
     }
 
+    //this function is utilized when the bookmarks button is pressed to transition to that fragment
     @Override
     public void onStartBookmarks() {
         bookmarkfragment = new BookmarkFragment();
@@ -97,7 +120,8 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
         ft.commit();
 
     }
-
+    
+    //this function is used in the other fragments when the button is pressed to return to the main fragment
     @Override
     public void onStartMaps() {
         mapsfragment = new MapsFragment();
