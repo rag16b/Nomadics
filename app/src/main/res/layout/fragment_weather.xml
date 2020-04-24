@@ -157,16 +157,37 @@
                 android:id="@+id/currentDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 app:cardBackgroundColor="@android:color/background_dark">
 
-                <Switch
-                    android:id="@+id/switch_Units"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="false"
-                    android:textOff="°F"
-                    android:textOn="°C" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Switch
+                        android:id="@+id/switch_Units"
+                        style="@style/Widget.AppCompat.CompoundButton.Switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:checked="false"
+                        android:switchTextAppearance="@style/TextAppearance.AppCompat.Widget.Switch"
+                        android:textColor="@color/white"
+                        android:textOff="°F"
+                        android:textOn="°C" />
+
+                    <TextView
+                        android:id="@+id/caption_unitSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/switch_Units"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Imperial/Metric"
+                        android:textColor="@color/white" />
+                </RelativeLayout>
 
                 <LinearLayout
                     android:id="@+id/currentdetails_layout"
