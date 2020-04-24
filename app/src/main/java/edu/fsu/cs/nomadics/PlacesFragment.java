@@ -192,7 +192,16 @@ public class PlacesFragment extends Fragment implements View.OnClickListener, Pl
                         textViewAddress.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                //launch maps
+                                //TODO: Launch maps
+                                //latitude = latlng.latitude
+                                //longitude = latlng.longitude
+
+
+
+
+
+
+
                             }
                         });
 
@@ -402,6 +411,23 @@ public class PlacesFragment extends Fragment implements View.OnClickListener, Pl
         final String click_name = name;
         final double click_lat = latitude;
         final double click_long = longitude;
+
+        ImageView image = dialogView.findViewById(R.id.imageView);
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: Launch maps
+                //latitude = click_lat
+                //longitude = click_long
+
+
+
+
+
+
+
+            }
+        });
 
         //name of place
         TextView textViewName = dialogView.findViewById(R.id.textViewName);
