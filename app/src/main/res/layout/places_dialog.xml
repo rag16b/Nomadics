@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/white"
-            app:srcCompat="@drawable/googleg_disabled_color_18"
+            app:srcCompat="@drawable/googleg_standard_color_18"
             android:clickable="true"/>
 
         <LinearLayout

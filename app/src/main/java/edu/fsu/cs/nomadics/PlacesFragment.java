@@ -1,13 +1,10 @@
 package edu.fsu.cs.nomadics;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
-import android.graphics.Picture;
-import android.icu.text.DateIntervalInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -51,13 +48,13 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class PlacesFragment extends Fragment implements View.OnClickListener, PlacesRecyclerViewAdapter.OnRecyclerClickListener {
+public class PlacesFragment extends Fragment implements View.OnClickListener,
+        PlacesRecyclerViewAdapter.OnRecyclerClickListener {
     private OnPlacesInteractionListener mListener;
 
     String TAG = "PlacesFragment";
@@ -78,7 +75,6 @@ public class PlacesFragment extends Fragment implements View.OnClickListener, Pl
 
     private ArrayList<String> names, ids, addrs;
     private ArrayList<Double> lat, lon;
-    private ArrayList<JSONObject> photos;
     private RecyclerView placesrecyclerview;
 
     public PlacesFragment() {
@@ -100,7 +96,6 @@ public class PlacesFragment extends Fragment implements View.OnClickListener, Pl
         addrs = new ArrayList<>();
         lat = new ArrayList<>();
         lon = new ArrayList<>();
-        photos = new ArrayList<>();
 
         weatherbutton = (Button) rootView.findViewById(R.id.weatherb);
         homebutton = (Button) rootView.findViewById(R.id.homebutton);
@@ -164,16 +159,18 @@ public class PlacesFragment extends Fragment implements View.OnClickListener, Pl
                         final LatLng latLng = place.getLatLng();
 
                         //Launch dialog
-                        final AlertDialog.Builder builder = new AlertDialog.Builder(rootView.getContext());
+                        final AlertDialog.Builder builder =
+                                new AlertDialog.Builder(rootView.getContext());
                         View dialogView = getLayoutInflater().inflate(R.layout.places_dialog, null);
                         builder.setView(dialogView);
                         final AlertDialog dialog = builder.create();
 
                         final ImageView image = dialogView.findViewById(R.id.imageView);
                         if (photo != null && !photo.isEmpty()) {
-                            FetchPhotoRequest photoRequest = FetchPhotoRequest.builder(photo.get(0)).setMaxHeight(150)
-                                    .build();
-                            client.fetchPhoto(photoRequest).addOnSuccessListener(new OnSuccessListener<FetchPhotoResponse>() {
+                            FetchPhotoRequest photoRequest = FetchPhotoRequest.builder(photo.get(0))
+                                    .setMaxHeight(150).build();
+                            client.fetchPhoto(photoRequest).addOnSuccessListener(
+                                    new OnSuccessListener<FetchPhotoResponse>() {
                                 @Override
                                 public void onSuccess(FetchPhotoResponse fetchPhotoResponse) {
                                     Bitmap bitmap = fetchPhotoResponse.getBitmap();
@@ -181,6 +178,25 @@ public class PlacesFragment extends Fragment implements View.OnClickListener, Pl
                                 }
                             });
                         }
+                        image.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Bundle bundle = new Bundle();
+                                bundle.putString("name", name);
+                                bundle.putDouble("lat",latLng.latitude);
+                                bundle.putDouble("long", latLng.longitude);
+
+                                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                                MapsFragment fragment = new MapsFragment();
+                                fragment.setArguments(bundle);
+                                activity.getSupportFragmentManager()
+                                        .beginTransaction()
+                                        .replace(R.id.frame, fragment)
+                                        .addToBackStack(null)
+                                        .commit();
+                                dialog.dismiss();
+                            }
+                        });
 
                         //name of place
                         TextView textViewName = dialogView.findViewById(R.id.textViewName);
@@ -210,6 +226,7 @@ public class PlacesFragment extends Fragment implements View.OnClickListener, Pl
                                         .replace(R.id.frame, fragment)
                                         .addToBackStack(null)
                                         .commit();
+                                dialog.dismiss();
                             }
                         });
 
@@ -231,6 +248,8 @@ public class PlacesFragment extends Fragment implements View.OnClickListener, Pl
                             public void onClick(View v) {
                                 BookMarkFileIO bmarksIO = new BookMarkFileIO(getContext());
                                 bmarksIO.add(name, latLng.longitude, latLng.latitude);
+                                Toast.makeText(rootView.getContext(), "Bookmarked " + name,
+                                        Toast.LENGTH_SHORT).show();
                             }
                         });
 
@@ -349,7 +368,7 @@ public class PlacesFragment extends Fragment implements View.OnClickListener, Pl
         lon.clear();
 
         String radius = "16000";
-        Toast.makeText(rootView.getContext(), "Searching", Toast.LENGTH_SHORT).show();
+        Toast.makeText(rootView.getContext(), "Gathering data", Toast.LENGTH_SHORT).show();
 
         String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?"
                 + "location=" + latlong + "&radius=" + radius +"&type=" + type + "&key=" + apiKey;
@@ -370,7 +389,8 @@ public class PlacesFragment extends Fragment implements View.OnClickListener, Pl
                                 ids.add(array.getJSONObject(i).getString("id"));
 
                                 if (array.getJSONObject(i).has("formatted_address"))
-                                    addrs.add(array.getJSONObject(i).getString("formatted_address"));
+                                    addrs.add(array.getJSONObject(i)
+                                            .getString("formatted_address"));
                                 else
                                     addrs.add(null);
 
@@ -437,6 +457,7 @@ public class PlacesFragment extends Fragment implements View.OnClickListener, Pl
                         .replace(R.id.frame, fragment)
                         .addToBackStack(null)
                         .commit();
+                dialog.dismiss();
             }
         });
 
@@ -462,6 +483,8 @@ public class PlacesFragment extends Fragment implements View.OnClickListener, Pl
             public void onClick(View v) {
                 BookMarkFileIO bmarksIO = new BookMarkFileIO(getContext());
                 bmarksIO.add(click_name, click_long, click_lat);
+                Toast.makeText(rootView.getContext(), "Bookmarked " + click_name,
+                        Toast.LENGTH_SHORT).show();
             }
         });
 
