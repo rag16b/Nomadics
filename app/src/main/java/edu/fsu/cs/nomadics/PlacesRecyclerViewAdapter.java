@@ -79,7 +79,7 @@ public class PlacesRecyclerViewAdapter extends RecyclerView.Adapter<PlacesRecycl
                 placeId = id.get(position);
                 addr = address.get(position);
                 double latitude = lat.get(position);
-                double longitude = lat.get(position);
+                double longitude = lon.get(position);
 
                 onRecyclerClickListener.onRecyclerClickListener(name,
                         addr, placeId, latitude, longitude);

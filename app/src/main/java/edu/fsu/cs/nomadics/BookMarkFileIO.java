@@ -91,6 +91,14 @@ public class BookMarkFileIO {
         return bmNames;
     }
 
+    public double getLat(int position){
+        return bmNames.get(position).second.lat;
+    }
+
+    public double getLong(int position){
+        return bmNames.get(position).second.lon;
+    }
+
     // ----- private helper functions -----
 
     // tells whether a bookmark already exists

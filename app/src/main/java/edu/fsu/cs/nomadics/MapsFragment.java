@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import static com.android.volley.VolleyLog.TAG;
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
@@ -84,10 +87,15 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
             });
 
             // will grab coordinates sent from other fragments and set marker here.
+            Bundle bundle = this.getArguments();
+            String name = bundle.getString("name");
+            Double lat = bundle.getDouble("lat");
+            Double lon = bundle.getDouble("long");
+            Log.d(TAG, "onMapReady: " + name + " " + lat + ":" + lon);
             map.addMarker(new MarkerOptions()
-                    .position(new LatLng(25.9117,-80.3185))
-                    .title("Name of Place"));
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(25.9117,-80.3185), 10f));
+                    .position(new LatLng(lat,lon))
+                    .title(name));
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lon), 10f));
 
             map.setMyLocationEnabled(true);
         } else {

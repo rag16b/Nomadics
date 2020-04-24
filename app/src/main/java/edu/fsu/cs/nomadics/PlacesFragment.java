@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -192,16 +193,23 @@ public class PlacesFragment extends Fragment implements View.OnClickListener, Pl
                         textViewAddress.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                //TODO: Launch maps
-                                //latitude = latlng.latitude
-                                //longitude = latlng.longitude
 
+                                double latitude = latLng.latitude;
+                                double longitude = latLng.longitude;
 
+                                Bundle bundle = new Bundle();
+                                bundle.putString("name",name);
+                                bundle.putDouble("lat",latitude);
+                                bundle.putDouble("long",longitude);
 
-
-
-
-
+                                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                                MapsFragment fragment = new MapsFragment();
+                                fragment.setArguments(bundle);
+                                activity.getSupportFragmentManager()
+                                        .beginTransaction()
+                                        .replace(R.id.frame, fragment)
+                                        .addToBackStack(null)
+                                        .commit();
                             }
                         });
 
@@ -416,16 +424,19 @@ public class PlacesFragment extends Fragment implements View.OnClickListener, Pl
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: Launch maps
-                //latitude = click_lat
-                //longitude = click_long
+                Bundle bundle = new Bundle();
+                bundle.putString("name",click_name);
+                bundle.putDouble("lat",click_lat);
+                bundle.putDouble("long",click_long);
 
-
-
-
-
-
-
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                MapsFragment fragment = new MapsFragment();
+                fragment.setArguments(bundle);
+                activity.getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frame, fragment)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 

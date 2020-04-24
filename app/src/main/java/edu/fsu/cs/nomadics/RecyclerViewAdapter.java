@@ -1,6 +1,10 @@
 package edu.fsu.cs.nomadics;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 import android.util.Log;
@@ -45,8 +49,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: clicked on: " + bookmarkNames.get(position));
+                //Toast.makeText(context, bookmarkNames.get(position), Toast.LENGTH_SHORT).show();
 
-                Toast.makeText(context, bookmarkNames.get(position), Toast.LENGTH_SHORT).show();
+                Bundle bundle = new Bundle();
+                bundle.putString("name",bookmarkNames.get(position));
+                bundle.putDouble("lat",bmarksIO.getLat(position));
+                bundle.putDouble("long",bmarksIO.getLong(position));
+
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                MapsFragment fragment = new MapsFragment();
+                fragment.setArguments(bundle);
+                activity.getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frame, fragment)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
