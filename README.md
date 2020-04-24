@@ -21,4 +21,4 @@ Semester Project - Nomadics is a prototype tourism application being developed w
 
 Please note that in the places to go fragment, if the user selects a place from the list, not all the information (address, hours, phone) will be displayed. 
 This is due to the structure of JSON object returned from the HttpGET request. The ID does not work with the function to get the Place object for the search bar. 
-The JSON object usually only contains the name, ID, and the coordinates.
+The JSON object usually only contains the name, ID, and the coordinates. The user can still open the map by clicking on the picture on the dialog.
